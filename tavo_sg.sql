@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50540
+Source Server         : 127.0.0.1_3306
+Source Server Version : 50621
 Source Host           : 127.0.0.1:3306
 Source Database       : tavo_sg
 
 Target Server Type    : MYSQL
-Target Server Version : 50540
+Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-03-20 09:04:33
+Date: 2015-03-23 21:30:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,7 +50,7 @@ CREATE TABLE `cuentas` (
   PRIMARY KEY (`id`),
   KEY `id_pedido` (`id_pedido`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of cuentas
@@ -91,20 +91,19 @@ DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id_mesa` int(11) NOT NULL,
-  `descuento` int(11) NOT NULL,
-  `estado` enum('Activo','Cerrado') COLLATE utf8_spanish_ci DEFAULT NULL,
-  `para_llevar` enum('Si','No') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `id_mesa` int(11) DEFAULT NULL,
+  `para_llevar` enum('Si') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descuento` int(11) DEFAULT NULL,
+  `estado` enum('Activo','Cerrado') COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_mesa` (`id_mesa`),
   CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of pedidos
 -- ----------------------------
-INSERT INTO `pedidos` VALUES ('1', '2015-03-19 17:27:44', '3', '12', 'Activo', 'No');
-INSERT INTO `pedidos` VALUES ('2', '2015-03-19 17:28:35', '4', '10', 'Activo', 'No');
+INSERT INTO `pedidos` VALUES ('4', '2015-03-23 21:29:08', '3', null, '20', 'Cerrado');
 
 -- ----------------------------
 -- Table structure for productos
@@ -124,7 +123,7 @@ CREATE TABLE `productos` (
 -- ----------------------------
 -- Records of productos
 -- ----------------------------
-INSERT INTO `productos` VALUES ('1', '1', 'Patacon de Carne o de Pollo', null, '200.00');
+INSERT INTO `productos` VALUES ('1', '1', 'Patacon', 'Patacon de Carne o Pollo', '200.00');
 INSERT INTO `productos` VALUES ('2', '2', 'Baby Grill', 'Hamburguesa Sencilla ', '200.00');
 INSERT INTO `productos` VALUES ('3', '8', 'Jamon/Tocineta', 'Extra para cualquier comida', '70.00');
 
@@ -134,23 +133,24 @@ INSERT INTO `productos` VALUES ('3', '8', 'Jamon/Tocineta', 'Extra para cualquie
 DROP TABLE IF EXISTS `productosXpedido`;
 CREATE TABLE `productosXpedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_pedido` int(11) DEFAULT NULL,
-  `id_producto` int(11) DEFAULT NULL,
-  `devuelto` enum('Si','No') COLLATE utf8_spanish_ci DEFAULT NULL,
-  `precio` double(7,2) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
+  `id_pedido` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `devuelto` enum('Si') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `precio` double(7,2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_pedido` (`id_pedido`),
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `productosXpedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
   CONSTRAINT `productosXpedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of productosXpedido
 -- ----------------------------
-INSERT INTO `productosXpedido` VALUES ('1', '1', '1', null, null, null);
-INSERT INTO `productosXpedido` VALUES ('2', null, null, null, null, null);
+INSERT INTO `productosXpedido` VALUES ('3', '4', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('4', '4', '3', null, '70.00');
+INSERT INTO `productosXpedido` VALUES ('5', '4', '1', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('6', '4', '1', null, '200.00');
 
 -- ----------------------------
 -- Table structure for varios
@@ -158,8 +158,8 @@ INSERT INTO `productosXpedido` VALUES ('2', null, null, null, null, null);
 DROP TABLE IF EXISTS `varios`;
 CREATE TABLE `varios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `valor` int(11) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `valor` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -167,3 +167,58 @@ CREATE TABLE `varios` (
 -- Records of varios
 -- ----------------------------
 INSERT INTO `varios` VALUES ('1', 'Descuento Familiar', '10');
+
+-- ----------------------------
+-- Procedure structure for cerrar_pedido
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `cerrar_pedido`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cerrar_pedido`(IN `id_pedido_in` int)
+BEGIN
+	
+DECLARE total_sum, descuento_porc, descuento_calc, total  INT;
+
+set descuento_porc = (select descuento from pedidos where id=id_pedido_in);
+
+
+if ISNULL(descuento_porc) then set descuento_porc=0;
+
+end if;
+
+
+
+set total_sum = (select sum(precio) from productosXpedido where id_pedido=id_pedido_in);
+
+set descuento_calc = total_sum*(descuento_porc/100);
+
+
+set total = total_sum - descuento_calc;
+
+insert into cuentas (id_pedido, total_pagar) VALUES(id_pedido_in, total);
+
+UPDATE pedidos SET estado='Cerrado' WHERE id=id_pedido_in;
+
+
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for insertar_producto_a_pedido
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `insertar_producto_a_pedido`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto_a_pedido`(IN `id_pedido` int,`id_producto` int)
+BEGIN
+	
+DECLARE precio_copia INT;
+
+
+set precio_copia = (select precio from productos where id=id_producto);
+
+insert into productosXpedido (id_pedido, id_producto, precio) VALUES(id_pedido, id_producto, precio_copia);
+
+END
+;;
+DELIMITER ;
