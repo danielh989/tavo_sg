@@ -56,6 +56,22 @@ class Main_model extends CI_Model {
 
     }
 
+    public function cerrar_pedido($id_pedido){
+    	$this->db->query("CALL cerrar_pedido($id_pedido)");
+    }
+
+    public function insertar_producto_pedido($id_pedido, $id_producto){
+    	$this->db->query("CALL insertar_producto_pedido($id_pedido, $id_producto)");
+    }
+
+
+    public function eliminar_producto_pedido($id_pedido, $id_producto){
+    	$this->db->where('id_pedido', $id_pedido);
+    	$this->db->where('id_producto', $id_producto);
+    	$this->db->limit(1); //Para eliminar un producto por vez
+		$this->db->delete('productosXpedido'); 
+    }
+
 
 
 

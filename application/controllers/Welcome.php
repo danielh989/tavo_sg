@@ -13,6 +13,6 @@ class Welcome extends CI_Controller {
     }
 	public function index()
 	{
-		$this->main_model->mesas_libres();
+		$this->main_model->eliminar_producto_pedido(4,2);
 	}
 }
