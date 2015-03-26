@@ -24,4 +24,42 @@ class Main_model extends CI_Model {
     }
 
 
+    public function mesas_libres (){
+
+    	//Mostrar las mesas que no tienen un pedido activo
+
+    	$this->db->where('mesas.id not in (select id_mesa from pedidos where estado="Activo")');
+    	$query=$this->db->get('mesas');
+    	var_dump($query->result());
+    }
+
+    public function detalle_pedido($id) {
+
+    	//Muestra detalles de un pedido dado
+    	$this->db->where('id',$id);
+    	$query=$this->db->get('pedidos');
+    	var_dump($query->result());
+        
+    }
+
+    public function productos_pedido($id_pedido){
+
+    	//Muestra los productos asociados a un pedido dado, agrupados por producto reflejando cantidad y precio por cantidad
+
+    	$this->db->select('productosXpedido.id, productosXpedido.id_pedido, productosXpedido.id_producto');
+    	$this->db->select('count(productosXpedido.id_producto) as cantidad, sum(productosXpedido.precio) as precio_total, productos.nombre');
+    	$this->db->join('productos','productosXpedido.id_producto = productos.id','inner');
+    	$this->db->where('productosXpedido.id_pedido',$id_pedido);
+    	$this->db->group_by('id_producto');
+    	$query=$this->db->get('productosXpedido');
+    	var_dump($query->result());
+
+    }
+
+
+
+
+
+
+
 }

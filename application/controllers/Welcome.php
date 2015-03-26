@@ -13,6 +13,6 @@ class Welcome extends CI_Controller {
     }
 	public function index()
 	{
-		$this->main_model->mesas_activas();
+		$this->main_model->mesas_libres();
 	}
 }
