@@ -1,0 +1,23 @@
+{
+  "name": "tavo_sg",
+  "version": "1.0.0",
+  "description": "Control de ordenes",
+  "main": "package.json",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-stylus": "^0.21.0",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://pflores2704@bitbucket.org/lab707/tavo_sg.git"
+  },
+  "author": "Jesus Torres, Daniel Arroyo, Pedro Flores",
+  "license": "MIT"
+}
