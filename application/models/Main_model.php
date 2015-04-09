@@ -72,6 +72,11 @@ class Main_model extends CI_Model {
 		$this->db->delete('productosXpedido'); 
     }
 
+    public function categorias(){
+        $query=$this->db->get('categorias');
+        return $query->result();
+    }
+
 
 
 
