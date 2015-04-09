@@ -21,6 +21,8 @@ class Main extends CI_Controller {
 	}
 
 	public function crearSesionOrden(){
-		print_r($_POST);
+		$this->load->library('session');
+		$this->session->set_userdata($_POST);
+		echo json_encode($this->main_model->categorias());
 	}
 }

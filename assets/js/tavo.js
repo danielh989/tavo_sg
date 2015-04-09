@@ -41,7 +41,14 @@ function mesasDisponibles(){
 					type: type,
 					data: data,
 					success: function(response){
+						var json = jQuery.parseJSON(response),
+						 		template = $('#categorias-template').html();
+
 						console.log(response);
+						$('.modal-body').html("");
+						$.each(json, function(index, value){
+							$('.modal-body').append(Mustache.render(template, json[index]));
+						});
 					}
 				});
 		

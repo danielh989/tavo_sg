@@ -70,6 +70,14 @@
 			</div>
 		</a>
 	</template>
+
+	<template id="categorias-template">
+		<a href="#" class="categorias" data-id="{{id}}">
+			<div class="number-wrapper">
+				<h2 class="number">{{nombre}}</h2>
+			</div>
+		</a>
+	</template>
 	
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

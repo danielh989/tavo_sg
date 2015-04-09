@@ -64,7 +64,6 @@ class Main_model extends CI_Model {
     	$this->db->query("CALL insertar_producto_pedido($id_pedido, $id_producto)");
     }
 
-
     public function eliminar_producto_pedido($id_pedido, $id_producto){
     	$this->db->where('id_pedido', $id_pedido);
     	$this->db->where('id_producto', $id_producto);
@@ -72,10 +71,9 @@ class Main_model extends CI_Model {
 		$this->db->delete('productosXpedido'); 
     }
 
-
-
-
-
-
+    public function categorias(){
+        $query=$this->db->get('categorias');
+        return $query->result();
+    }
 
 }
