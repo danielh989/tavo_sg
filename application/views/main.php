@@ -28,11 +28,15 @@
 	<div class="table-container">
 		
 		<!-- Mesas abiertas -->
-		<a href="#" class="table-unit">
+
+		<?php foreach ($mesas_activas as $row){
+                                                        echo '<a href="#" class="table-unit">
 			<div class="number-wrapper">
-				<h2 class="number">4</h2>
+				<h2 class="number">'.$row->numero.'</h2>
 			</div>
-		</a>
+		</a>';
+                                    }?>
+		
 
 		<!-- Agregar mesa -->
 		<a href="#" class="table-unit table-add">

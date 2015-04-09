@@ -17,7 +17,7 @@ class Main_model extends CI_Model {
     	$this->db->join('pedidos', 'pedidos.id_mesa = mesas.id', 'inner');
     	$this->db->where('pedidos.estado','Activo');
     	$query=$this->db->get('mesas');
-    	var_dump($query->result());
+    	return $query->result();
  
         
         

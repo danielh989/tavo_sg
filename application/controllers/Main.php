@@ -11,7 +11,7 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$this->main_model->eliminar_producto_pedido(4,2);
-		$this->load->view('main');
+		$data['mesas_activas']=$this->main_model->mesas_activas();
+		$this->load->view('main',$data);
 	}
 }
