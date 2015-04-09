@@ -17,7 +17,7 @@ class Main_model extends CI_Model {
     	$this->db->join('pedidos', 'pedidos.id_mesa = mesas.id', 'inner');
     	$this->db->where('pedidos.estado','Activo');
     	$query=$this->db->get('mesas');
-    	var_dump($query->result());
+    	return $query->result();
  
         
         
@@ -30,7 +30,7 @@ class Main_model extends CI_Model {
 
     	$this->db->where('mesas.id not in (select id_mesa from pedidos where estado="Activo")');
     	$query=$this->db->get('mesas');
-    	var_dump($query->result());
+        return $query->result();
     }
 
     public function detalle_pedido($id) {

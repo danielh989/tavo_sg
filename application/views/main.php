@@ -28,11 +28,15 @@
 	<div class="table-container">
 		
 		<!-- Mesas abiertas -->
-		<a href="#" class="table-unit">
-			<div class="number-wrapper">
-				<h2 class="number">4</h2>
-			</div>
-		</a>
+
+		<?php foreach ($mesas_activas as $row):?>
+			<a href="#" class="table-unit">
+				<div class="number-wrapper">
+					<h2 class="number"><?=$row->numero?></h2>
+				</div>
+			</a>
+		<?php endforeach;?>
+		
 
 		<!-- Agregar mesa -->
 		<a href="#" class="table-unit table-add" data-toggle="modal" data-target="#myModal">
@@ -50,19 +54,26 @@
 		        <h2 class="modal-title text-center" id="myModalLabel">Nueva Orden</h2>
 		      </div>
 		      <div class="modal-body">
-		        ...
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 
 	</div>
+
+	<template id="select-table">
+		<a href="#" class="mesa-libre" data-id="{{id}}">
+			<div class="number-wrapper">
+				<h2 class="number">{{numero}}</h2>
+			</div>
+		</a>
+	</template>
 	
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/tavo.js')?>"></script>
 </body>
 </body>

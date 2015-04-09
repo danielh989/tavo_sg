@@ -1,0 +1,158 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'mustache' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose cache add [ 'mustache', null ]
+5 verbose cache add name=undefined spec="mustache" args=["mustache",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'mustache',
+6 verbose parsed url   path: 'mustache',
+6 verbose parsed url   href: 'mustache' }
+7 silly lockFile e372423e-mustache mustache
+8 verbose lock mustache /home/pedro/.npm/e372423e-mustache.lock
+9 silly lockFile e372423e-mustache mustache
+10 silly lockFile e372423e-mustache mustache
+11 verbose addNamed [ 'mustache', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 58264633-mustache mustache@
+14 verbose lock mustache@ /home/pedro/.npm/58264633-mustache.lock
+15 silly addNameRange { name: 'mustache', range: '*', hasData: false }
+16 verbose request where is /mustache
+17 verbose request registry https://registry.npmjs.org/
+18 verbose request id ea6538f78d33d495
+19 verbose url raw /mustache
+20 verbose url resolving [ 'https://registry.npmjs.org/', './mustache' ]
+21 verbose url resolved https://registry.npmjs.org/mustache
+22 verbose request where is https://registry.npmjs.org/mustache
+23 info trying registry request attempt 1 at 14:10:18
+24 verbose etag "6IHZHOAGTR25HQPGJ6NFJS3AG"
+25 http GET https://registry.npmjs.org/mustache
+26 http 304 https://registry.npmjs.org/mustache
+27 silly registry.get cb [ 304,
+27 silly registry.get   { date: 'Thu, 09 Apr 2015 18:39:59 GMT',
+27 silly registry.get     server: 'Apache',
+27 silly registry.get     via: '1.1 varnish',
+27 silly registry.get     'last-modified': 'Thu, 09 Apr 2015 18:39:59 GMT',
+27 silly registry.get     'cache-control': 'max-age=60',
+27 silly registry.get     etag: '"6IHZHOAGTR25HQPGJ6NFJS3AG"',
+27 silly registry.get     age: '18',
+27 silly registry.get     'x-served-by': 'cache-atl6226-ATL',
+27 silly registry.get     'x-cache': 'HIT',
+27 silly registry.get     'x-cache-hits': '1',
+27 silly registry.get     'x-timer': 'S1428604799.074157,VS0,VE1',
+27 silly registry.get     vary: 'Accept',
+27 silly registry.get     'content-length': '0',
+27 silly registry.get     'keep-alive': 'timeout=10, max=50',
+27 silly registry.get     connection: 'Keep-Alive' } ]
+28 verbose etag https://registry.npmjs.org/mustache from cache
+29 silly addNameRange number 2 { name: 'mustache', range: '*', hasData: true }
+30 silly addNameRange versions [ 'mustache',
+30 silly addNameRange   [ '0.3.1-dev',
+30 silly addNameRange     '0.4.0',
+30 silly addNameRange     '0.5.1-dev',
+30 silly addNameRange     '0.5.2',
+30 silly addNameRange     '0.6.0',
+30 silly addNameRange     '0.7.0',
+30 silly addNameRange     '0.7.1',
+30 silly addNameRange     '0.7.2',
+30 silly addNameRange     '0.7.3',
+30 silly addNameRange     '0.8.0',
+30 silly addNameRange     '0.8.1',
+30 silly addNameRange     '0.8.2',
+30 silly addNameRange     '1.0.0',
+30 silly addNameRange     '1.1.0',
+30 silly addNameRange     '1.2.0',
+30 silly addNameRange     '2.0.0' ] ]
+31 verbose addNamed [ 'mustache', '2.0.0' ]
+32 verbose addNamed [ '2.0.0', '2.0.0' ]
+33 silly lockFile f3af110f-mustache-2-0-0 mustache@2.0.0
+34 verbose lock mustache@2.0.0 /home/pedro/.npm/f3af110f-mustache-2-0-0.lock
+35 silly lockFile f3af110f-mustache-2-0-0 mustache@2.0.0
+36 silly lockFile f3af110f-mustache-2-0-0 mustache@2.0.0
+37 silly lockFile 58264633-mustache mustache@
+38 silly lockFile 58264633-mustache mustache@
+39 silly resolved [ { name: 'mustache',
+39 silly resolved     version: '2.0.0',
+39 silly resolved     description: 'Logic-less {{mustache}} templates with JavaScript',
+39 silly resolved     author:
+39 silly resolved      { name: 'mustache.js Authors',
+39 silly resolved        email: 'http://github.com/janl/mustache.js' },
+39 silly resolved     repository: { type: 'git', url: 'https://github.com/janl/mustache.js.git' },
+39 silly resolved     keywords: [ 'mustache', 'template', 'templates', 'ejs' ],
+39 silly resolved     main: './mustache.js',
+39 silly resolved     bin: { mustache: './bin/mustache' },
+39 silly resolved     files: [ 'mustache.js', 'mustache.min.js', 'bin', 'wrappers', 'LICENSE' ],
+39 silly resolved     volo: { url: 'https://raw.github.com/janl/mustache.js/{version}/mustache.js' },
+39 silly resolved     engines: { npm: '>=1.4.0' },
+39 silly resolved     scripts:
+39 silly resolved      { pretest: 'jshint mustache.js',
+39 silly resolved        test: 'mocha --reporter spec',
+39 silly resolved        'test-render': 'mocha  --reporter spec test/render-test' },
+39 silly resolved     devDependencies: { jshint: '~2.4.4', mocha: '~2.1.0' },
+39 silly resolved     spm: { main: 'mustache.js', ignore: [Object] },
+39 silly resolved     gitHead: 'c52df34ee05ed9b0ffac945eb86e814c84b29b07',
+39 silly resolved     bugs: { url: 'https://github.com/janl/mustache.js/issues' },
+39 silly resolved     homepage: 'https://github.com/janl/mustache.js',
+39 silly resolved     _id: 'mustache@2.0.0',
+39 silly resolved     _shasum: 'b86a7157cc85c6e18c03afef8a671f03069890f3',
+39 silly resolved     _from: 'mustache@',
+39 silly resolved     _npmVersion: '2.7.3',
+39 silly resolved     _nodeVersion: '0.10.33',
+39 silly resolved     _npmUser: { name: 'dasilvacontin', email: 'daviddasilvacontin@gmail.com' },
+39 silly resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+39 silly resolved     dist:
+39 silly resolved      { shasum: 'b86a7157cc85c6e18c03afef8a671f03069890f3',
+39 silly resolved        tarball: 'http://registry.npmjs.org/mustache/-/mustache-2.0.0.tgz' },
+39 silly resolved     directories: {},
+39 silly resolved     _resolved: 'https://registry.npmjs.org/mustache/-/mustache-2.0.0.tgz',
+39 silly resolved     readme: 'ERROR: No README data found!' } ]
+40 info install mustache@2.0.0 into /usr/local/lib
+41 info installOne mustache@2.0.0
+42 verbose lib/node_modules/mustache unbuild
+43 verbose tar unpack /home/pedro/.npm/mustache/2.0.0/package.tgz
+44 silly lockFile 41c20e23--local-lib-node-modules-mustache tar:///usr/local/lib/node_modules/mustache
+45 verbose lock tar:///usr/local/lib/node_modules/mustache /home/pedro/.npm/41c20e23--local-lib-node-modules-mustache.lock
+46 silly lockFile edd29667-o-npm-mustache-2-0-0-package-tgz tar:///home/pedro/.npm/mustache/2.0.0/package.tgz
+47 verbose lock tar:///home/pedro/.npm/mustache/2.0.0/package.tgz /home/pedro/.npm/edd29667-o-npm-mustache-2-0-0-package-tgz.lock
+48 silly gunzTarPerm modes [ '775', '664' ]
+49 error Error: EACCES, mkdir '/usr/local/lib/node_modules/mustache'
+49 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/mustache']
+49 error   errno: 3,
+49 error   code: 'EACCES',
+49 error   path: '/usr/local/lib/node_modules/mustache',
+49 error   fstream_type: 'Directory',
+49 error   fstream_path: '/usr/local/lib/node_modules/mustache',
+49 error   fstream_class: 'DirWriter',
+49 error   fstream_stack:
+49 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
+49 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
+49 error      'Object.oncomplete (fs.js:107:15)' ] }
+50 error Please try running this command again as root/Administrator.
+51 error System Linux 3.13.0-48-generic
+52 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "mustache"
+53 error cwd /var/www/html/tavo_sg
+54 error node -v v0.10.33
+55 error npm -v 1.4.28
+56 error path /usr/local/lib/node_modules/mustache
+57 error fstream_path /usr/local/lib/node_modules/mustache
+58 error fstream_type Directory
+59 error fstream_class DirWriter
+60 error code EACCES
+61 error errno 3
+62 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/mustache'
+63 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+63 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
+63 error fstream_stack Object.oncomplete (fs.js:107:15)
+64 verbose exit [ 3, true ]
