@@ -35,14 +35,34 @@
 		</a>
 
 		<!-- Agregar mesa -->
-		<a href="#" class="table-unit table-add">
+		<a href="#" class="table-unit table-add" data-toggle="modal" data-target="#myModal">
 			<div class="number-wrapper">
 				<h2 class="number">+</h2>
 			</div>
 		</a>
 
+		<!-- Modal -->
+		<div class="modal order-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h2 class="modal-title text-center" id="myModalLabel">Nueva Orden</h2>
+		      </div>
+		      <div class="modal-body">
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 	</div>
 	
+	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </body>
