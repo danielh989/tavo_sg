@@ -78,6 +78,13 @@ class Main_model extends CI_Model {
     }
 
 
+    public function productos_x_categoria($id_cat){
+        $this->db->where('id_cat',$id_cat);
+        $query=$this->db->get('productos');
+        return $query->result();
+    }
+
+
 
 
 
