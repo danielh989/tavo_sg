@@ -20,9 +20,12 @@ class Main extends CI_Controller {
 		echo json_encode($this->main_model->mesas_libres());
 	}
 
-	public function crearSesionOrden(){
-		$this->load->library('session');
-		$this->session->set_userdata($_POST);
+	public function getCategorias(){
 		echo json_encode($this->main_model->categorias());
+	}
+
+	public function getProductosXCategoria(){
+		$id = $this->input->post('id_cat');
+		echo json_encode($this->main_model->productos_x_categoria($id));
 	}
 }

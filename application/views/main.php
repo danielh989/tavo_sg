@@ -72,9 +72,27 @@
 	</template>
 
 	<template id="categorias-template">
-		<a href="#" class="categorias" data-id="{{id}}">
+		<a href="#" class="categoria" data-id="{{id}}">
+			<div class="number-wrapper">
+				<h2 class="number text-center">{{nombre}}</h2>
+			</div>
+		</a>
+	</template>
+	
+	<template id="back-button">
+		<a href="#" class="back"><span class="glyphicon glyphicon-chevron-left">Atrás</span></a>
+	</template>
+
+	<template id="productos-template">
+		<a href="#" class="producto" data-id="{{id}}">
 			<div class="number-wrapper">
 				<h2 class="number">{{nombre}}</h2>
+				<div class="precio">{{precio}}</div>
+				<div class="cantidad"></div>
+				<div class="btn-group" role="group" aria-label="...">
+				  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+				  <button type="button" class="btn btn-default btn-agregar"><span class="glyphicon glyphicon-plus"></span></button>
+				</div>
 			</div>
 		</a>
 	</template>

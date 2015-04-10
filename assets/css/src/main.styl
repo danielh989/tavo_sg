@@ -70,24 +70,55 @@ body
 			background #F4F4F4
 		.modal-footer
 			text-align: center
+		.modal-body
+			clearfix()
 			
 	.mesa-libre
 		float: left
+		width: 23%
+		height: 130px
+		margin: 5.5px
+		background: #DDD
 		.number
-			width: 100px
-			height: 100px
-			background: #DDD
+			width: 100%
 			padding: 20px
-			margin-left: 5px
 			color: #ABB7B7
 	
-	.categorias
+	.categoria
 		float: left
+		position: relative
+		width: 23%
+		height: 130px
+		margin: 5.5px
+		background: #DDD
 		.number
-			width: 120px
-			height: 120px
-			background: #DDD
+			position: absolute
+			top: 50%
+			margin-top: -27.5px
+			width: 100%
 			padding: 20px
-			margin-left: 5px
-			font-size: 12px
-			color: #333
+			font-size: 14px
+			color: #222
+	
+	.producto
+		position: relative
+		text-decoration: none
+		color: #222
+		width: 100%
+		.number-wrapper
+			clearfix()
+			background: #DDD
+			padding: 10px 13px
+			border-radius: 3.4px
+			-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.35)
+			margin: 10px 0
+		.number
+			position: absolute
+			top: 64.5%
+			margin-top: -17px
+			display: inline-block
+			font-size: 16px
+			color: #222
+			height: 34px
+		.btn-group
+			float: right
