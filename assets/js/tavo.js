@@ -25,6 +25,8 @@ function mesasDisponibles(){
 		"productos": []
 	};
 
+	var categorias = {};
+
 	// Funcion para traer las mesas disponibles
 	$('.table-add').on('click', function(){
 		var that = $(this),
@@ -62,12 +64,12 @@ function mesasDisponibles(){
 					type: type,
 					data: data,
 					success: function(response){
-						var json = jQuery.parseJSON(response),
-						 		template = $('#categorias-template').html();
+						categorias = jQuery.parseJSON(response);
+						var template = $('#categorias-template').html();
 
 						$('.modal-body').html("");
-						$.each(json, function(index, value){
-							$('.modal-body').append(Mustache.render(template, json[index]));
+						$.each(categorias, function(index, value){
+							$('.modal-body').append(Mustache.render(template, categorias[index]));
 						});
 					}
 				});
@@ -108,17 +110,28 @@ function mesasDisponibles(){
 			pedido.productos.push({"id":that.data('id'),"cantidad":"1"});
 		}
 		else {
+			var flag = 0;
+
 			$.each(pedido.productos, function(index, value){
 				// Si el ID del producto existe en el arreglo
 				// sumale uno a la cantidad
 				if( pedido.productos[index].id === that.data('id') ){
-					pedido.productos.cantidad = parseInt(pedido.productos.cantidad) + 1;
-					
+					pedido.productos[index].cantidad = parseInt(pedido.productos[index].cantidad) + 1;
+					pedido.productos[index].id = that.data('id');
 				}
+				flag = 1;
 			});
 		}
 
-		console.log(pedido);
+	});
+
+	$('.modal-body').on('click', '.btn-atras', function(){
+		var template = $('#categorias-template').html();
+
+		$('.modal-body').html("");
+		$.each(categorias, function(index, value){
+			$('.modal-body').append(Mustache.render(template, categorias[index]));
+		});
 	});
 
 
