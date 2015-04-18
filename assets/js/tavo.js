@@ -21,7 +21,7 @@ $(function(){
 function mesasDisponibles(){
 
 	var pedido = {
-		"mesa": "",
+		"id_mesa": "",
 		"productos": []
 	};
 
@@ -57,7 +57,7 @@ function mesasDisponibles(){
 				data = {};
 
 				// Guardando el ID de la mesa seleccionada
-				pedido.mesa = that.data('id');
+				pedido.id_mesa = that.data('id');
 
 				$.ajax({
 					url: url,
@@ -66,12 +66,13 @@ function mesasDisponibles(){
 					success: function(response){
 						categorias = jQuery.parseJSON(response);
 						var template = $('#categorias-template').html(),
-							  btn-template = $('#btn-completar').html();
+							  btnTemplate = $('#btn-completar').html();
 
 						$('.modal-body').html("");
 						$.each(categorias, function(index, value){
 							$('.modal-body').append(Mustache.render(template, categorias[index]));
 						});
+						$('.modal-footer').append(Mustache.render(btnTemplate));
 					}
 				});
 	});

@@ -81,4 +81,41 @@ class Main_model extends CI_Model {
         $query=$this->db->get('productos');
         return $query->result();
     }
+
+
+
+
+    public function crear_pedido($id_mesa, $productos){
+
+        $this->db->set('id_mesa', $id_mesa);
+
+        
+        $this->db->trans_start();
+        $this->db->insert('pedidos');
+        
+        $id_pedido = $this->db->insert_id();
+        
+        if ($productos) {
+            
+            foreach ($productos as $row) {
+
+                for($i=0; $i<$row->cantidad; $i++){
+
+                    $this->db->query("CALL insertar_producto_pedido($id_pedido,$row->id)");
+
+                }
+                
+                
+            }
+            
+            $this->db->trans_complete();
+
+        } else {
+            $this->db->trans_rollback();
+        }
+
+
+    }
+
+
 }

@@ -28,4 +28,15 @@ class Main extends CI_Controller {
 		$id = $this->input->post('id_cat');
 		echo json_encode($this->main_model->productos_x_categoria($id));
 	}
+
+	public function crear_pedido(){
+		// print_r(json_encode($_POST));
+		$productos = json_decode(json_encode($_POST['productos']));
+
+		$this->main_model->crear_pedido($_POST['id_mesa'],$productos);
+
+		return TRUE;
+	}
+
+
 }
