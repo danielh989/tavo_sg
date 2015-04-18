@@ -27,6 +27,13 @@ function mesasDisponibles(){
 
 	var categorias = {};
 
+	$('.order-modal').focusout(function(){
+		pedido = {
+			"id_mesa": "",
+			"productos": []
+		};
+	});
+
 	// Funcion para traer las mesas disponibles
 	$('.table-add').on('click', function(){
 		var that = $(this),
@@ -58,6 +65,7 @@ function mesasDisponibles(){
 
 				// Guardando el ID de la mesa seleccionada
 				pedido.id_mesa = that.data('id');
+				console.log(pedido);
 
 				$.ajax({
 					url: url,
