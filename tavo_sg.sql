@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-03-23 21:30:34
+Date: 2015-04-18 19:34:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,7 +50,7 @@ CREATE TABLE `cuentas` (
   PRIMARY KEY (`id`),
   KEY `id_pedido` (`id_pedido`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of cuentas
@@ -98,12 +98,12 @@ CREATE TABLE `pedidos` (
   PRIMARY KEY (`id`),
   KEY `id_mesa` (`id_mesa`),
   CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of pedidos
 -- ----------------------------
-INSERT INTO `pedidos` VALUES ('4', '2015-03-23 21:29:08', '3', null, '20', 'Cerrado');
+INSERT INTO `pedidos` VALUES ('20', '2015-04-18 19:34:10', '1', null, null, 'Activo');
 
 -- ----------------------------
 -- Table structure for productos
@@ -142,15 +142,14 @@ CREATE TABLE `productosXpedido` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `productosXpedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
   CONSTRAINT `productosXpedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of productosXpedido
 -- ----------------------------
-INSERT INTO `productosXpedido` VALUES ('3', '4', '2', null, '200.00');
-INSERT INTO `productosXpedido` VALUES ('4', '4', '3', null, '70.00');
-INSERT INTO `productosXpedido` VALUES ('5', '4', '1', null, '200.00');
-INSERT INTO `productosXpedido` VALUES ('6', '4', '1', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('32', '20', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('33', '20', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('34', '20', '2', null, '200.00');
 
 -- ----------------------------
 -- Table structure for varios
@@ -205,11 +204,11 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Procedure structure for insertar_producto_a_pedido
+-- Procedure structure for insertar_producto_pedido
 -- ----------------------------
-DROP PROCEDURE IF EXISTS `insertar_producto_a_pedido`;
+DROP PROCEDURE IF EXISTS `insertar_producto_pedido`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto_a_pedido`(IN `id_pedido` int,`id_producto` int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto_pedido`(IN `id_pedido` int,`id_producto` int)
 BEGIN
 	
 DECLARE precio_copia INT;
