@@ -34,26 +34,34 @@ class Main_model extends CI_Model {
     }
 
     public function detalle_pedido($id) {
-
     	//Muestra detalles de un pedido dado
-    	$this->db->where('id',$id);
-    	$query=$this->db->get('pedidos');
-    	var_dump($query->result());
-        
+        $this->db->select('pedidos.*, mesas.numero');
+        $this->db->from('pedidos');
+        $this->db->where('pedidos.id', $id);
+        $this->db->join('mesas', 'pedidos.id_mesa = mesas.id');
+    	$query = $this->db->get();
+    	return $query->row();
+    }
+
+    public function total_pedido($id) {
+        $this->db->select('sum(productosXpedido.precio) as total');
+        $this->db->from('productosXpedido');
+        $this->db->where('productosXpedido.id_pedido', $id);
+
+        $query = $this->db->get();
+        return $query->row()->total;
     }
 
     public function productos_pedido($id_pedido){
-
     	//Muestra los productos asociados a un pedido dado, agrupados por producto reflejando cantidad y precio por cantidad
-
     	$this->db->select('productosXpedido.id, productosXpedido.id_pedido, productosXpedido.id_producto');
     	$this->db->select('count(productosXpedido.id_producto) as cantidad, sum(productosXpedido.precio) as precio_total, productos.nombre');
     	$this->db->join('productos','productosXpedido.id_producto = productos.id','inner');
     	$this->db->where('productosXpedido.id_pedido',$id_pedido);
     	$this->db->group_by('id_producto');
     	$query=$this->db->get('productosXpedido');
-    	var_dump($query->result());
-
+    	
+        return $query->result();
     }
 
     public function cerrar_pedido($id_pedido){

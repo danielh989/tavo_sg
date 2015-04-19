@@ -30,7 +30,7 @@
 		<!-- Mesas abiertas -->
 
 		<?php foreach ($mesas_activas as $row):?>
-			<a href="<?=base_url('pedido/'.$row->id_pedido)?>" class="table-unit">
+			<a href="<?=base_url('main/pedido/'.$row->id_pedido)?>" class="table-unit">
 				<div class="number-wrapper">
 					<h2 class="number"><?=$row->numero?></h2>
 				</div>
