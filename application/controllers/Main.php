@@ -35,7 +35,9 @@ class Main extends CI_Controller {
 	}
 
 	public function productos(){
-		$this->load->view('productos');
+		
+		$data['productos']=$this->main_model->listar_productos();
+		$this->load->view('productos',$data);
 	}
 
 
