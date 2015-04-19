@@ -172,7 +172,7 @@ function mesasDisponibles(){
 					type: type,
 					data: data,
 					success: function (response){
-						console.log(response);
+						window.location = 'http://localhost/tavo_sg/';
 					}
 				});
 	});
