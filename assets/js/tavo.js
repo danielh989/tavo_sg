@@ -27,7 +27,7 @@ function mesasDisponibles(){
 
 	var categorias = {};
 
-	$('.order-modal').focusout(function(){
+	$('#myModal').on('hidden.bs.modal', function(){
 		pedido = {
 			"id_mesa": "",
 			"productos": []
@@ -80,6 +80,7 @@ function mesasDisponibles(){
 						$.each(categorias, function(index, value){
 							$('.modal-body').append(Mustache.render(template, categorias[index]));
 						});
+						$('.modal-footer').html("");
 						$('.modal-footer').append(Mustache.render(btnTemplate));
 					}
 				});

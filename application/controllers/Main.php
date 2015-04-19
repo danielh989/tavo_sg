@@ -30,12 +30,8 @@ class Main extends CI_Controller {
 	}
 
 	public function crear_pedido(){
-		// print_r(json_encode($_POST));
 		$productos = json_decode(json_encode($_POST['productos']));
-
 		$this->main_model->crear_pedido($_POST['id_mesa'],$productos);
-
-		return TRUE;
 	}
 
 
