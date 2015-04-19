@@ -34,5 +34,9 @@ class Main extends CI_Controller {
 		$this->main_model->crear_pedido($_POST['id_mesa'],$productos);
 	}
 
+	public function productos(){
+		$this->load->view('productos');
+	}
+
 
 }
