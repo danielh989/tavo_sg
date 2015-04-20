@@ -1,22 +1,45 @@
 $(function(){
 
-	// var ejemplo = {
-	// 	"mesas": [
-	// 		{"id":"1"}
-	// 	],
-	// 	"productos": [
-	// 		{"id":"2", "cant":"1"}
-	// 	]
-	// }
-
-	// $.each(ejemplo.productos, function(index, value){
-	// 	ejemplo.productos[index].cant = parseInt(ejemplo.productos[index].cant) + 1;
-	// 	console.log(ejemplo.productos[index].cant);
-	// });
-
 	mesasDisponibles();
 
+	editarProductos();
+
 });
+
+function editarProductos(){
+
+	$('.table tbody .btn-editar').on('click', function(){
+		var fila = $(this).closest('tr'),
+				id = fila.data('id-producto');
+
+				console.log(fila.find('.nombre'));
+				$('input[name=nombre]').val(fila.find('.nombre').text());
+				$('input[name=precio]').val(fila.find('.precio').text());
+				$('textarea[name=descripcion]').val(fila.find('.descripcion').text());
+
+		var type = 'post',
+				url  = '/tavo_sg/main/getCategorias',
+				data = {};
+
+				$.ajax({
+					type: type,
+					url: url,
+					data: data,
+					success: function(response){
+						json = jQuery.parseJSON(response);
+						
+						sel = $('#categorias');
+
+						sel.empty();
+						$.each(json, function(index, value){
+							sel.append('<option value"'+ json[index].id +'">'+json[index].nombre+'</option>');
+						});
+						sel.val(fila.find('.categoria').text());
+					}
+				});
+	});
+
+}
 
 function mesasDisponibles(){
 

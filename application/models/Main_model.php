@@ -126,4 +126,17 @@ class Main_model extends CI_Model {
     }
 
 
+    public function listar_productos(){
+
+
+        $this->db->select('productos.id, productos.nombre, categorias.nombre as categoria, productos.id_cat, productos.descripcion, productos.precio');
+        $this->db->join('categorias','productos.id_cat = categorias.id','inner');
+        $this->db->order_by('categorias.nombre');
+        $query=$this->db->get('productos');
+        return $query->result();
+
+
+    }
+
+
 }

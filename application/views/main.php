@@ -7,6 +7,8 @@
 
 	<title>Mesas | SG</title>
 	
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<!-- Custom Style -->
@@ -18,6 +20,9 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li>
 				<a href="#">Ayuda</a>
+			</li>
+			<li>
+				<a href="<?=base_url('main/productos')?>">Productos</a>
 			</li>
 			<li>
 				<a href="#">Cerrar Sesión</a>
