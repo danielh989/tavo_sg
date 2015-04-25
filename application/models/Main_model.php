@@ -139,4 +139,13 @@ class Main_model extends CI_Model {
     }
 
 
+    public function cambiar_mesa($id_pedido, $id_mesa_nueva){
+
+        $this->db->set('id_mesa',$id_mesa_nueva);
+        $this->db->where('id', $id_pedido);
+        $this->db->update('pedidos'); 
+
+    }
+
+
 }
