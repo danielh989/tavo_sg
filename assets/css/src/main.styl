@@ -272,24 +272,34 @@ body
 	.detalle-pedido
 		clearfix()
 		.producto
+			position: relative
 			padding: 5px 20px
-			background: #F4F4F4
-			color: #333
+			color: #626262
 			text-transform: none
-			border-radius: 4px
-			box-shadow(0,1px,3px,rgba(0,0,0,0.35))
 			margin-bottom: 10px
+			border-bottom: 1.4px solid #eee
 			clearfix()
 			.detalles
 				display: inline-block
 				margin-right: 20px
+			.name
+				margin-right: 0
+			.qty
+				color: #2ECC71
 			.acciones
-				float: right
-				margin-top: 14.5px
+				position: absolute
+				right: 20px
+				bottom: 0
+				font-weight: 600
+			.btn-pedido
+				background: transparent
+				font-weight: 400
+				font-size 18px
+				border: none !important
 			.btn-warning
-				background: rgba(#f0ad4e, 0.45)
+				color: rgba(#f0ad4e, 0.85)
 			.btn-danger
-				background: rgba(#c9302c, 0.45)
+				color: rgba(#c9302c, 0.85)
 		
 		.col-btn
 			margin-top: 20px

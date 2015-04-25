@@ -33,10 +33,12 @@
 		<hr>
 		
 		<div class="pedido-opciones">
+
 			<div class="total-pedido">
 				<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
 				<h4 class="text-center">Total Orden</h4>
 			</div>
+
 			<div class="btn-pedido">
 				<a href="<?=base_url('main/pagar/'.$detalle->id)?>"><span class="glyphicon glyphicon-credit-card"></span><span class="title">Pagar</span></a>
 			</div>
@@ -44,6 +46,11 @@
 			<div class="btn-pedido btn-ordenar">
 				<a href="#"><span class="glyphicon glyphicon-cutlery" data-toggle="modal" data-target="#myModal"></span><span class="title">Ordenar</span></a>
 			</div>
+
+			<div class="btn-pedido btn-ordenar">
+				<a href="#"><span class="glyphicon glyphicon-transfer" data-toggle="modal" data-target="#myModal"></span><span class="title">Mesa</span></a>
+			</div>
+
 		</div>
 
 		<div class="detalle-pedido">
@@ -51,12 +58,12 @@
 
 			<?php foreach($productos as $producto): ?>
 				<div class="producto">
-					<h3 class="detalles"><?=$producto->nombre?></h3>
+					<h3 class="detalles name"><?=$producto->nombre?></h3>
+					<h2 class="detalles qty">x<?=$producto->cantidad?></h2>
 					<h4 class="detalles">Bs.F <?=$producto->precio_total?></h4>
-					<h2 class="detalles">x<?=$producto->cantidad?></h2>
 					<div class="acciones">
-						<button class="btn btn-warning" title="Devolver">D</button>
-						<button class="btn btn-danger" title="Eliminar">E</button>
+						<button class="btn btn-warning btn-pedido" title="Devolver">Devolver</button>
+						<button class="btn btn-danger btn-pedido" title="Eliminar">Eliminar</button>
 					</div>
 				</div>
 			<?php endforeach; ?>
