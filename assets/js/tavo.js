@@ -75,6 +75,7 @@ function mesasDisponibles(){
 				$.each(json, function(index, value){
 					$('.modal-body').append(Mustache.render(template, json[index]));
 				});
+				$('.modal-footer').html("");
 			}
 		});
 	});
