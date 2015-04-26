@@ -48,10 +48,26 @@ class Main extends CI_Controller {
 		# Total acumulado del pedido
 		$total = $this->main_model->total_pedido($id_pedido);
 		$data['total'] = explode('.', $total); // Formateo del precio para la vista
+		$data['total'] = array_filter($data['total']);
 
 		# Productos del pedido
 		$data['productos'] = $this->main_model->productos_pedido($id_pedido);
 
 		$this->load->view('pedido', $data);
+	}
+
+	public function agregar_producto(){
+		print_r($_POST);
+	}
+
+	public function eliminar_producto_pedido(){
+		$this->main_model->eliminar_producto_pedido(
+													$this->input->post('id_pedido'),
+													$this->input->post('id_producto')
+											);
+	}
+
+	public function devolver_producto_pedido(){
+		$this->main_model->devolver_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
 	}
 }

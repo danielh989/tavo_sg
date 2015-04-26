@@ -47,6 +47,7 @@ class Main_model extends CI_Model {
         $this->db->select('sum(productosXpedido.precio) as total');
         $this->db->from('productosXpedido');
         $this->db->where('productosXpedido.id_pedido', $id);
+        $this->db->where('productosXpedido.devuelto IS NULL');
 
         $query = $this->db->get();
         return $query->row()->total;
@@ -58,6 +59,7 @@ class Main_model extends CI_Model {
     	$this->db->select('count(productosXpedido.id_producto) as cantidad, sum(productosXpedido.precio) as precio_total, productos.nombre');
     	$this->db->join('productos','productosXpedido.id_producto = productos.id','inner');
     	$this->db->where('productosXpedido.id_pedido',$id_pedido);
+        $this->db->where('productosXpedido.devuelto IS NULL');
     	$this->db->group_by('id_producto');
     	$query=$this->db->get('productosXpedido');
     	
@@ -79,8 +81,19 @@ class Main_model extends CI_Model {
 		$this->db->delete('productosXpedido'); 
     }
 
+        public function devolver_producto_pedido($id_pedido, $id_producto){
+        $this->db->where('id_pedido', $id_pedido);
+        $this->db->where('id_producto', $id_producto);
+        $this->db->where('devuelto IS NULL');
+        $this->db->set('devuelto','Si');
+        $this->db->limit(1); //Para eliminar un producto por vez
+        $this->db->update('productosXpedido'); 
+    }
+
     public function categorias(){
+        $this->db->order_by('nombre');
         $query=$this->db->get('categorias');
+
         return $query->result();
     }
 

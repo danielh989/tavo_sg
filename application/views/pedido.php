@@ -16,7 +16,6 @@
 </head>
 <body>
 
-	
 	<div class="pedido-container">
 		<div class="btn-wrapper">
 			<div class="btn-atras">
@@ -35,7 +34,11 @@
 		<div class="pedido-opciones">
 
 			<div class="total-pedido">
-				<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
+				<?php if(empty($total)): ?>
+					<span>Bs.F </span>0
+				<?php else: ?>
+					<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
+				<?php endif; ?>
 				<h4 class="text-center">Total Orden</h4>
 			</div>
 
@@ -44,34 +47,38 @@
 			</div>
 
 			<div class="btn-pedido btn-ordenar">
-				<a href="#"><span class="glyphicon glyphicon-cutlery" data-toggle="modal" data-target="#myModal"></span><span class="title">Ordenar</span></a>
+				<a href="#"><span class="glyphicon glyphicon-cutlery" data-toggle="modal" data-target="#pedido"></span><span class="title">Ordenar</span></a>
 			</div>
 
 			<div class="btn-pedido btn-ordenar">
-				<a href="#"><span class="glyphicon glyphicon-transfer" data-toggle="modal" data-target="#myModal"></span><span class="title">Mesa</span></a>
+				<a href="#" class="table-add" data-toggle="modal" data-target="#mesa"><span class="glyphicon glyphicon-transfer"></span><span class="title">Mesa</span></a>
 			</div>
 
 		</div>
 
 		<div class="detalle-pedido">
 			<h4 class="text-center" style="font-weight:800;text-transform:uppercase">Detalle Orden</h4>
-
-			<?php foreach($productos as $producto): ?>
-				<div class="producto">
-					<h3 class="detalles name"><?=$producto->nombre?></h3>
-					<h2 class="detalles qty">x<?=$producto->cantidad?></h2>
-					<h4 class="detalles">Bs.F <?=$producto->precio_total?></h4>
-					<div class="acciones">
-						<button class="btn btn-warning btn-pedido" title="Devolver">Devolver</button>
-						<button class="btn btn-danger btn-pedido" title="Eliminar">Eliminar</button>
+			<?php $productos = array_filter($productos); ?>
+			<?php if(!empty($productos)): ?>
+				<?php foreach($productos as $producto): ?>
+					<div class="producto">
+						<h3 class="detalles name"><?=$producto->nombre?></h3>
+						<h2 class="detalles qty">x<?=$producto->cantidad?></h2>
+						<h4 class="detalles">Bs.F <?=$producto->precio_total?></h4>
+						<div class="acciones">
+							<button data-pedido="<?=$detalle->id?>" data-producto="<?=$producto->id_producto?>" class="btn btn-warning btn-pedido btn-devolver" title="Devolver">Devolver</button>
+							<button data-pedido="<?=$detalle->id?>" data-producto="<?=$producto->id_producto?>" class="btn btn-danger btn-pedido btn-eliminar" title="Eliminar">Eliminar</button>
+						</div>
 					</div>
-				</div>
-			<?php endforeach; ?>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<h2 class="text-center" style="color:#828282">No hay productos</h2>
+			<?php endif; ?>
 		</div>
 
 
-		<!-- Modal -->
-		<div class="modal order-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<!-- Modal para Pedido-->
+		<div class="modal order-modal fade" id="mesa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -85,7 +92,17 @@
 		    </div>
 		  </div>
 		</div>
-
+		
+		<!-- Plantilla para mesas -->
+		<template id="select-table">
+			<a href="#" class="mesa-libre" data-id="{{id}}">
+				<div class="number-wrapper">
+					<h2 class="number">{{numero}}</h2>
+				</div>
+			</a>
+		</template>
+		
+		<!-- Plantilla de categorias -->
 		<template id="categorias-template">
 			<a href="#" class="categoria" data-id="{{id}}">
 				<div class="number-wrapper">
