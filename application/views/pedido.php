@@ -17,12 +17,8 @@
 <body>
 
 	<div class="pedido-container">
-		<div class="btn-wrapper">
-			<div class="btn-atras">
-				<a href="<?=base_url('main')?>">
-					<span>&lt; Volver</span>
-				</a>
-			</div>
+		<div class="go-back">
+			<a href="<?=base_url('main')?>"><span class="glyphicon glyphicon-th"></span></a>
 		</div>
 
 		<header>

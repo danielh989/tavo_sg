@@ -89,12 +89,14 @@
 	</template>
 	
 	<template id="back-button">
-		<div class="btn-wrapper">
-			<a href="#" class="btn-atras">
-				<span class="arrow"></span>
-		    <span class="arrow-inner"></span>
-				<span class="button">Atrás</span>
-			</a>
+		<div class="go-back">
+			<div class="btn-wrapper">
+				<a href="#" class="btn-atras">
+					<span class="arrow"></span>
+			    <span class="arrow-inner"></span>
+					<span class="button">Atrás</span>
+				</a>
+			</div>
 		</div>
 	</template>
 
