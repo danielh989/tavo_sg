@@ -72,6 +72,23 @@
 			<?php endif; ?>
 		</div>
 
+		<div class="detalle-pedido">
+			<h4 class="text-center" style="font-weight:800;text-transform:uppercase">Productos Devueltos</h4>
+			<?php $devoluciones = array_filter($devoluciones); ?>
+			<?php if(!empty($devoluciones)): ?>
+				<?php foreach($devoluciones as $row): ?>
+					<div class="producto">
+						<h3 class="detalles name"><?=$row->nombre?></h3>
+						<h2 class="detalles qty">x<?=$row->cantidad?></h2>
+						<h4 class="detalles">Bs.F <?=$row->precio_total?></h4>
+						<div class="acciones">
+							<button data-pedido="<?=$detalle->id?>" data-producto="<?=$producto->id_producto?>" class="btn btn-danger btn-pedido btn-eliminar-devuelto" title="Eliminar">Eliminar</button>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
+
 
 		<!-- Modal para Pedido-->
 		<div class="modal order-modal fade" id="mesa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
