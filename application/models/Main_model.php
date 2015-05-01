@@ -170,4 +170,11 @@ class Main_model extends CI_Model
         return $query->result();
 
     }
+
+    public function pagar_pedido($id_pedido,$efectivo,$debito){
+
+        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito)");
+        
+
+    }
 }

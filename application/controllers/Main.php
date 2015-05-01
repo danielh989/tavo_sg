@@ -8,6 +8,7 @@ class Main extends CI_Controller
         parent::__construct();
         $this->load->model('main_model');
         $this->load->helper(array('url'));
+        $this->load->library('session');
     }
     
     public function index() {
@@ -43,6 +44,7 @@ class Main extends CI_Controller
         // Detalles del pedido
         $data['detalle'] = $this->main_model->detalle_pedido($id_pedido);
         $data['devoluciones'] = $this->main_model->productos_devueltos($id_pedido);
+        $this->session->set_flashdata('id_pedido', $id_pedido);
 
 
         // Total acumulado del pedido
@@ -70,5 +72,12 @@ class Main extends CI_Controller
     
     public function devolver_producto_pedido() {
         $this->main_model->devolver_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+    }
+
+    public function pagar_pedido() {
+        $efectivo = $this->input->post('efectivo');
+        $debito = $this->input->post('debito');
+        $id_pedido = $this->session->flashdata('id_pedido');
+        $this->main_model->pagar_pedido($id_pedido,$efectivo,$debito);
     }
 }

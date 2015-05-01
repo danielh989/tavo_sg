@@ -39,8 +39,9 @@
 			</div>
 
 			<div class="btn-pedido">
-				<a href="<?=base_url('main/pagar/'.$detalle->id)?>"><span class="glyphicon glyphicon-credit-card"></span><span class="title">Pagar</span></a>
+				<a href="" data-toggle="modal" data-target="#modalPagar"><span class="glyphicon glyphicon-credit-card"></span><span class="title">Pagar</span></a>
 			</div>
+
 
 			<div class="btn-pedido btn-ordenar">
 				<a href="#"><span class="glyphicon glyphicon-cutlery" data-toggle="modal" data-target="#pedido"></span><span class="title">Ordenar</span></a>
@@ -105,6 +106,51 @@
 		    </div>
 		  </div>
 		</div>
+
+		<!-- Modal para Pagar-->
+		<div class="modal fade" id="modalPagar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Pagar</h4>
+		      </div>
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+					        <div class="total-pedido">
+							<?php if(empty($total)): ?>
+								<span>Bs.F </span>0
+							<?php else: ?>
+								<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
+							<?php endif; ?>
+							<h4 class="text-center">Total Orden</h4>
+							</div>
+						</div>
+						<p></p>
+						<div class="row">
+							<form action="/tavo_sg/main/pagar_pedido" method="POST">
+							
+							<label for="efectivo">Efectivo</label>
+
+							<input type="text" name="efectivo">
+							<label for="debito">Débito</label>
+							<input type="text" name="debito">
+						</div>
+					</div>
+					
+
+				</div>
+		
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		        </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 		
 		<!-- Plantilla para mesas -->
 		<template id="select-table">
