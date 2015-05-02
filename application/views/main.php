@@ -10,7 +10,7 @@
 	<!-- Google Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link href="<?=base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
 	<!-- Custom Style -->
 	<link rel="stylesheet" href="<?=base_url('assets/css/style.css')?>">
 </head>
@@ -114,8 +114,8 @@
 		</a>
 	</template>
 	
-	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
 	<script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/tavo.js')?>"></script>
 </body>
