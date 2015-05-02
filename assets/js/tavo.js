@@ -123,8 +123,7 @@ function getCategorias(select, auto, categoria) {
     type: type,
     url: url,
     data: data,
-    success: function(response) {
-      json = jQuery.parseJSON(response);
+    success: function(json) {
       sel = $(select);
       sel.empty();
       sel.append('<option value="0">Seleccionar...</option>');
