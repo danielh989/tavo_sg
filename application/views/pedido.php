@@ -113,40 +113,43 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Pagar</h4>
+		        <h4 class="modal-title text-center" id="myModalLabel">Pagar</h4>
 		      </div>
-				<div class="modal-body">
-					<div class="container">
+					<div class="modal-body">
+
 						<div class="row">
-					        <div class="total-pedido">
-							<?php if(empty($total)): ?>
-								<span>Bs.F </span>0
-							<?php else: ?>
-								<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
-							<?php endif; ?>
-							<h4 class="text-center">Total Orden</h4>
+							<div class="total-pedido">
+								<?php if(empty($total)): ?>
+									<span>Bs.F </span>0
+								<?php else: ?>
+									<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
+								<?php endif; ?>
+								<h4 class="text-center">Total Orden</h4>
 							</div>
 						</div>
-						<p></p>
-						<div class="row">
-							<form action="/tavo_sg/main/pagar_pedido" method="POST">
-							
-							<label for="efectivo">Efectivo</label>
 
-							<input type="text" name="efectivo">
-							<label for="debito">Débito</label>
-							<input type="text" name="debito">
+						<div class="row payment-method">
+							<form action="/tavo_sg/main/pagar_pedido" id="pay-form" method="POST">
+								<div class="etiquetas">
+									<label for="efectivo">Efectivo</label>
+									<label for="debito">Débito/Credito</label>
+								</div>
+								<div class="inputs">
+									<input type="text" name="efectivo" id="efectivo" value="0" spellcheck="false">
+									<input type="text" name="debito" id="debito" value="0" spellcheck="false">
+									<label><input type="radio" name="pago" data-total="<?=$total[0].$total[1]?>" value="efectivo"> Solo efectivo</label>
+									<label><input type="radio" name="pago" data-total="<?=$total[0].$total[1]?>" value="debito"> Solo debito</label>
+								</div>
 						</div>
-					</div>
-					
 
-				</div>
-		
+					</div><!-- Cierra modal-body -->
+
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-		        <button type="submit" class="btn btn-primary">Guardar</button>
+			        <button type="button" class="btn btn-danger-empty" data-dismiss="modal">Cancelar</button>
+			        <button type="submit" class="btn btn-success">Pagar</button>
 		        </form>
-		      </div>
+		      </div> <!-- Cierra modal-footer -->
+
 		    </div>
 		  </div>
 		</div>
@@ -202,6 +205,7 @@
 	<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/jquery.price_format.2.0.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/tavo.js')?>"></script>
 </body>
 </html>

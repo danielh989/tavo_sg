@@ -58,6 +58,11 @@ class Main extends CI_Controller
 		$this->main_model->crear_pedido($_POST['id_mesa'], $productos);
 	}
 
+	/**
+	* Carga la vista con el CRUD de productos
+	*
+	* @return void
+	*/
 	public function productos() {
 		$data['productos'] = $this->main_model->listar_productos();
 		$this->load->view('productos', $data);
@@ -66,7 +71,7 @@ class Main extends CI_Controller
 	/**
 	* Carga la vista de un pedido con sus detalles
 	*
-	* @param $id_pedido ID del pedido
+	* @param $id_pedido String -> ID del pedido
 	* @return void
 	*/
 	public function pedido($id_pedido) {
@@ -113,6 +118,7 @@ class Main extends CI_Controller
 	/**
 	* Convertir datos en un objeto JSON
 	*
+	* @param $data String -> Datos a convertir
 	* @return json objeto
 	*/
 	private function encode($data){
