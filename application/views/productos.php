@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Title Page</title>
         <!-- Bootstrap CSS -->
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?=base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -110,9 +110,9 @@
         </div><!-- /.modal -->
 
         <!-- jQuery -->
-        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
         <!-- Bootstrap JavaScript -->
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
         <!-- Custom JS -->
         <script src="<?=base_url('assets/js/tavo.js')?>"></script>
     </body>
