@@ -107,6 +107,7 @@ class Main extends CI_Controller
 		$debito = $this->input->post('debito');
 		$id_pedido = $this->session->flashdata('id_pedido');
 		$this->main_model->pagar_pedido($id_pedido,$efectivo,$debito);
+		redirect('/main/', 'refresh');
 	}
 
 	/**
