@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1_3306
-Source Server Version : 50621
+Source Server         : localhost_3306
+Source Server Version : 50543
 Source Host           : 127.0.0.1:3306
 Source Database       : tavo_sg
 
 Target Server Type    : MYSQL
-Target Server Version : 50621
+Target Server Version : 50543
 File Encoding         : 65001
 
-Date: 2015-04-18 19:34:59
+Date: 2015-05-04 18:49:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,11 +50,15 @@ CREATE TABLE `cuentas` (
   PRIMARY KEY (`id`),
   KEY `id_pedido` (`id_pedido`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of cuentas
 -- ----------------------------
+INSERT INTO `cuentas` VALUES ('4', '31', '1000.00', '500.00', '500.00');
+INSERT INTO `cuentas` VALUES ('5', '32', '600.00', '300.00', '300.00');
+INSERT INTO `cuentas` VALUES ('6', '33', null, '0.00', '0.00');
+INSERT INTO `cuentas` VALUES ('7', '34', null, '0.00', '0.00');
 
 -- ----------------------------
 -- Table structure for mesas
@@ -98,12 +102,17 @@ CREATE TABLE `pedidos` (
   PRIMARY KEY (`id`),
   KEY `id_mesa` (`id_mesa`),
   CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of pedidos
 -- ----------------------------
-INSERT INTO `pedidos` VALUES ('20', '2015-04-18 19:34:10', '1', null, null, 'Activo');
+INSERT INTO `pedidos` VALUES ('31', '2015-04-30 21:52:22', '5', null, null, 'Cerrado');
+INSERT INTO `pedidos` VALUES ('32', '2015-04-30 22:04:55', '1', null, null, 'Cerrado');
+INSERT INTO `pedidos` VALUES ('33', '2015-05-02 15:15:57', '1', null, null, 'Cerrado');
+INSERT INTO `pedidos` VALUES ('34', '2015-05-02 15:18:04', '1', null, null, 'Cerrado');
+INSERT INTO `pedidos` VALUES ('35', '2015-05-02 16:16:56', '1', null, null, 'Activo');
+INSERT INTO `pedidos` VALUES ('36', '2015-05-04 15:57:09', '3', null, null, 'Activo');
 
 -- ----------------------------
 -- Table structure for productos
@@ -142,14 +151,23 @@ CREATE TABLE `productosXpedido` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `productosXpedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
   CONSTRAINT `productosXpedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
 -- Records of productosXpedido
 -- ----------------------------
-INSERT INTO `productosXpedido` VALUES ('32', '20', '2', null, '200.00');
-INSERT INTO `productosXpedido` VALUES ('33', '20', '2', null, '200.00');
-INSERT INTO `productosXpedido` VALUES ('34', '20', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('66', '31', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('67', '31', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('68', '31', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('69', '31', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('70', '31', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('71', '32', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('72', '32', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('73', '32', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('83', '35', '2', 'Si', '200.00');
+INSERT INTO `productosXpedido` VALUES ('84', '36', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('85', '36', '2', null, '200.00');
+INSERT INTO `productosXpedido` VALUES ('86', '36', '2', null, '200.00');
 
 -- ----------------------------
 -- Table structure for varios
@@ -172,7 +190,7 @@ INSERT INTO `varios` VALUES ('1', 'Descuento Familiar', '10');
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cerrar_pedido`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cerrar_pedido`(IN `id_pedido_in` int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cerrar_pedido`(IN `id_pedido_in` int,IN `efectivo` int,IN `debito` int)
 BEGIN
 	
 DECLARE total_sum, descuento_porc, descuento_calc, total  INT;
@@ -193,7 +211,7 @@ set descuento_calc = total_sum*(descuento_porc/100);
 
 set total = total_sum - descuento_calc;
 
-insert into cuentas (id_pedido, total_pagar) VALUES(id_pedido_in, total);
+insert into cuentas (id_pedido, total_pagar,efectivo,debito) VALUES(id_pedido_in, total,efectivo,debito);
 
 UPDATE pedidos SET estado='Cerrado' WHERE id=id_pedido_in;
 
