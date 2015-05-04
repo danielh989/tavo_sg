@@ -108,8 +108,12 @@ class Main extends CI_Controller
 	}
 
 	public function pagar_pedido() {
-		$efectivo = $this->input->post('efectivo');
-		$debito = $this->input->post('debito');
+		# Formateando los valores para la db
+		$rawCash  = explode(' ', $this->input->post('efectivo'));
+		$rawDebit = explode(' ', $this->input->post('debito'));
+		$efectivo = (float) str_replace(',', '.', str_replace('.', '', end($rawCash)));
+		$debito = (float) str_replace(',', '.', str_replace('.', '', end($rawDebit)));
+
 		$id_pedido = $this->session->flashdata('id_pedido');
 		$this->main_model->pagar_pedido($id_pedido,$efectivo,$debito);
 		redirect('/main/', 'refresh');
