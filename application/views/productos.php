@@ -114,6 +114,6 @@
         <!-- Bootstrap JavaScript -->
         <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
         <!-- Custom JS -->
-        <script src="<?=base_url('assets/js/tavo.js')?>"></script>
+        <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
     </body>
 </html>

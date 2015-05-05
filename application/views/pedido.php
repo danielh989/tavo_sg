@@ -206,6 +206,6 @@
 	<script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
 	<script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/jquery.price_format.2.0.min.js')?>"></script>
-	<script src="<?=base_url('assets/js/tavo.js')?>"></script>
+	<script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
 </body>
 </html>
