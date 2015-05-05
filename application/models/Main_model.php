@@ -80,11 +80,11 @@ class Main_model extends CI_Model
         //Para eliminar un producto por vez
         $this->db->delete('productosXpedido');
     }
-
+    
     public function eliminar_producto_devuelto($id_pedido, $id_producto) {
         $this->db->where('id_pedido', $id_pedido);
         $this->db->where('id_producto', $id_producto);
-        $this->db->where('devuelto','Si');
+        $this->db->where('devuelto', 'Si');
         $this->db->limit(1);
         
         //Para eliminar un producto por vez
@@ -163,34 +163,33 @@ class Main_model extends CI_Model
         $this->db->select('count(productosXpedido.id_producto) as cantidad, sum(productosXpedido.precio) as precio_total, productos.nombre');
         $this->db->join('productos', 'productosXpedido.id_producto = productos.id', 'inner');
         $this->db->where('productosXpedido.id_pedido', $id_pedido);
-        $this->db->where('productosXpedido.devuelto','Si');
+        $this->db->where('productosXpedido.devuelto', 'Si');
         $this->db->group_by('id_producto');
         $query = $this->db->get('productosXpedido');
         
         return $query->result();
-
     }
-
-    public function pagar_pedido($id_pedido,$efectivo,$debito){
-
-        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito)");
+    
+    public function pagar_pedido($id_pedido, $efectivo, $debito) {
         
-
+        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito)");
     }
-
-
-    public function agregar_producto($data){
-
-        if(empty($data["id"])){
+    
+    public function agregar_producto($data) {
+        
+        if (empty($data["id"])) {
             $this->db->set($data);
             $this->db->insert('productos');
-        }else{
+        } 
+        else {
             $this->db->set($data);
-            $this->db->where('id',$data['id']);
+            $this->db->where('id', $data['id']);
             $this->db->update('productos');
         }
+    }
 
-        
-
+    public function eliminar_producto($id){
+            $this->db->where('id',$id);
+            $this->db->delete('productos');
     }
 }
