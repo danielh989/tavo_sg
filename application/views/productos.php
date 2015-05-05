@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="col-md-6">
 
-                                    <select name="categorias" id="categorias" class="form-control" placeholder="Categoría">
+                                    <select name="id_cat" id="id_cat" class="form-control" placeholder="Categoría">
                                         <option value="">Categoría</option>
                                     </select><p></p>
                                     <textarea name="descripcion" id="" cols="30" rows="6" class="form-control"></textarea>

@@ -143,7 +143,7 @@ function getCategorias(select, auto, categoria) {
 function gestionarProductos() {
   // Abrir el modal para agregar producto
   $('.btn-agregar').on('click', function() {
-      getCategorias('#categorias', 0); // Dejar el select en opcion 0
+      getCategorias('#id_cat', 0); // Dejar el select en opcion 0
       $('input').val(""); // Borrar contenido los inputs
       $('textarea').val(""); // Borrar contenido del textarea
   });
@@ -153,15 +153,9 @@ function gestionarProductos() {
     var form = $('form#producto'),
         type = form.attr('method'),
         url = form.attr('action'),
-        data = {};
+        data = form.serializeArray();
+        data.push({ name: "id_cat", value: $('#id_cat').prop("selectedIndex") });
 
-    form.find('[name]').each(function(index, value) {
-      var that = $(this),
-          name = that.attr('name'),
-          value = that.val();
-      
-      data[name] = value; // Guardamos datos del formulario
-    });
 
     $.ajax({
       type: type,
@@ -182,7 +176,7 @@ function gestionarProductos() {
       $('input[name=nombre]').val(fila.find('.nombre').text());
       $('input[name=precio]').val(fila.find('.precio').text());
       $('textarea[name=descripcion]').val(fila.find('.descripcion').text());
-      getCategorias('#categorias', 1, cat);
+      getCategorias('#id_cat', 1, cat);
   });
   // Eliminar producto
   $('.table tbody .btn-eliminar').on('click', function() {

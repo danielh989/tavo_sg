@@ -177,4 +177,20 @@ class Main_model extends CI_Model
         
 
     }
+
+
+    public function agregar_producto($data){
+
+        if(empty($data["id"])){
+            $this->db->set($data);
+            $this->db->insert('productos');
+        }else{
+            $this->db->set($data);
+            $this->db->where('id',$data['id']);
+            $this->db->update('productos');
+        }
+
+        
+
+    }
 }
