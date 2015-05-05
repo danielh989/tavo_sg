@@ -16,7 +16,6 @@
     </head>
     <body>
         <div class="container">
-
             <div class="col-md-8 col-md-offset-2">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success btn-agregar" data-toggle="modal" data-target="#myModal">
@@ -36,7 +35,7 @@
                         <?php foreach ($productos as $row): ?>
                         <tr data-id-producto="<?= $row->id ?>">
                             <td class="nombre"><?= $row->nombre ?></td>
-                            <td class="categoria"><?= $row->categoria ?></td>
+                            <td class="categoria" data-idcat="<?=$row->id_cat?>"><?= $row->categoria ?></td>
                             <td class="descripcion"><?= $row->descripcion ?></td>
                             <td class="precio"><?= $row->precio ?></td>
                             <td>
@@ -51,6 +50,7 @@
                 </table>
             </div>
         </div>
+
         <!-- Modal Editar -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -60,7 +60,7 @@
                         <h4 class="modal-title" id="myModalLabel">Agregar Producto</h4>
                     </div>
                     <div class="modal-body">
-
+                        <span class="error"></span>
                         <form action="agregar_producto" id="producto" method="post">
                             <div class="form-group row">
 
@@ -114,6 +114,6 @@
         <!-- Bootstrap JavaScript -->
         <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
         <!-- Custom JS -->
-        <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
+        <script src="<?=base_url('assets/js/built.js')?>"></script>
     </body>
 </html>

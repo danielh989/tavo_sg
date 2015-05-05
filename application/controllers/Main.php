@@ -92,11 +92,12 @@ class Main extends CI_Controller
 	}
 
 	public function agregar_producto() {
-
-
-		$this->main_model->agregar_producto($this->input->post());
-		
-		
+		if ($this->main_model->agregar_producto($this->input->post())){
+			$this->encode(array('st'=>1));
+		}
+		else {
+			$this->encode(array('st'=>0));
+		}
 	}
 
 	public function eliminar_producto_pedido() {

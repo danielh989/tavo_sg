@@ -145,7 +145,7 @@ class Main_model extends CI_Model
         
         $this->db->select('productos.id, productos.nombre, categorias.nombre as categoria, productos.id_cat, productos.descripcion, productos.precio');
         $this->db->join('categorias', 'productos.id_cat = categorias.id', 'inner');
-        $this->db->order_by('categorias.nombre');
+        $this->db->order_by('productos.id_cat');
         $query = $this->db->get('productos');
         return $query->result();
     }
@@ -176,15 +176,14 @@ class Main_model extends CI_Model
     }
     
     public function agregar_producto($data) {
-        
         if (empty($data["id"])) {
             $this->db->set($data);
-            $this->db->insert('productos');
+            return $this->db->insert('productos');
         } 
         else {
             $this->db->set($data);
             $this->db->where('id', $data['id']);
-            $this->db->update('productos');
+            return $this->db->update('productos');
         }
     }
 

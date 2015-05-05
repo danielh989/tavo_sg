@@ -14,16 +14,19 @@ function gestionarProductos() {
     var form = $('form#producto'),
         type = form.attr('method'),
         url = form.attr('action'),
-        data = form.serializeArray();
-        data.push({ name: "id_cat", value: $('#id_cat').prop("selectedIndex") });
-
+        data = form.serialize();
 
     $.ajax({
       type: type,
       url: url,
       data: data,
       success: function(response) {
-          console.log(response);
+          if(response.st){
+            location.reload();
+          }
+          else {
+            $('span.error').append('Opps! Ocurrio un error, intentalo nuevamente.');
+          }
       }
     });
   });
@@ -32,11 +35,14 @@ function gestionarProductos() {
   $('.table tbody .btn-editar').on('click', function() {
       var fila = $(this).closest('tr'),
           id = fila.data('id-producto'),
-          cat = fila.find('.categoria').text();
+          cat = fila.find('.categoria').attr('data-idcat');
+          console.log(cat);
+
       $('input[name=id]').val(id);
       $('input[name=nombre]').val(fila.find('.nombre').text());
       $('input[name=precio]').val(fila.find('.precio').text());
       $('textarea[name=descripcion]').val(fila.find('.descripcion').text());
+
       getCategorias('#id_cat', 1, cat);
   });
   // Eliminar producto
