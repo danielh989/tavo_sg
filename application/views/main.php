@@ -65,54 +65,7 @@
 		    </div>
 		  </div>
 		</div>
-
 	</div>
-
-	<template id="select-table">
-		<a href="#" class="mesa-libre" data-id="{{id}}">
-			<div class="number-wrapper">
-				<h2 class="number">{{numero}}</h2>
-			</div>
-		</a>
-	</template>
-
-	<template id="categorias-template">
-		<a href="#" class="categoria" data-id="{{id}}">
-			<div class="number-wrapper">
-				<h2 class="number text-center">{{nombre}}</h2>
-			</div>
-		</a>
-	</template>
-
-	<template id="btn-completar">
-		<button class="btn btn-success btn-block btn-completar">Completar</button>
-	</template>
-	
-	<template id="back-button">
-		<div class="go-back">
-			<div class="btn-wrapper">
-				<a href="#" class="btn-atras">
-					<span class="arrow"></span>
-			    <span class="arrow-inner"></span>
-					<span class="button">Atrás</span>
-				</a>
-			</div>
-		</div>
-	</template>
-
-	<template id="productos-template">
-		<a href="#" class="producto" data-id="{{id}}">
-			<div class="number-wrapper">
-				<h2 class="number">{{nombre}}</h2>
-				<div class="precio">{{precio}} Bs.F</div>
-				<div class="cantidad">{{cantidad}}</div>
-				<div class="btn-group" role="group" aria-label="...">
-				  <button type="button" data-id="{{id}}" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
-				  <button type="button" data-id="{{id}}" class="btn btn-default btn-agregar"><span class="glyphicon glyphicon-plus"></span></button>
-				</div>
-			</div>
-		</a>
-	</template>
 	
 	<script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>

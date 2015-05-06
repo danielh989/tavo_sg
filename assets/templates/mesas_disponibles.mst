@@ -1,0 +1,5 @@
+<a href="#" class="mesa-libre" data-id="{{id}}">
+	<div class="number-wrapper">
+		<h2 class="number">{{numero}}</h2>
+	</div>
+</a>

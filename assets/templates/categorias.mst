@@ -1,0 +1,5 @@
+<a href="#" class="categoria" data-id="{{id}}">
+	<div class="number-wrapper">
+		<h2 class="number text-center">{{nombre}}</h2>
+	</div>
+</a>
