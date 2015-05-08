@@ -27,6 +27,14 @@
 			<li>
 				<a href="<?=base_url('main/editar_mesas')?>">Mesas</a>
 			</li>
+
+			<li>
+				<a href="<?=base_url('main/editar_categorias')?>">Categorias</a>
+			</li>
+
+			<li>
+				<a href="<?=base_url('main/descuento_familiar')?>">Descuento Familiar</a>
+			</li>
 			<li>
 				<a href="#">Cerrar Sesión</a>
 			</li>

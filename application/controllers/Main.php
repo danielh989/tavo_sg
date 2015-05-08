@@ -16,7 +16,24 @@ class Main extends CI_Controller
         $this->load->library('session');
     }
 
-        public function editar_categorias() {
+
+    public function submit_descuento(){
+
+        $this->main_model->submit_descuento($this->input->post('descuento'));
+        redirect('/main/descuento_familiar');
+
+    }
+
+    public function descuento_familiar(){
+
+        $data['descuento']=$this->main_model->getDescuento();
+
+        $this->load->view('descuento_familiar',$data);
+    }
+
+
+    
+    public function editar_categorias() {
         
         $data['categorias'] = $this->main_model->getCategorias();
         
@@ -32,9 +49,6 @@ class Main extends CI_Controller
         
         $this->main_model->eliminar_categoria($this->input->post('id_categoria'));
     }
-
-
-
     
     public function editar_mesas() {
         
@@ -154,6 +168,7 @@ class Main extends CI_Controller
     }
     
     public function pagar_pedido() {
+        
         // Formateando los valores para la db
         $rawCash = explode(' ', $this->input->post('efectivo'));
         $rawDebit = explode(' ', $this->input->post('debito'));

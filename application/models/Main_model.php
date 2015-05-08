@@ -13,6 +13,23 @@ class Main_model extends CI_Model
         
     }
 
+
+    public function getDescuento(){
+        $this->db->where('id',1);
+        return $this->db->get('varios')->row();
+    }
+
+    public function submit_descuento($descuento){
+
+
+        $this->db->set('valor',$descuento);
+        $this->db->where('id',1);
+        $this->db->update('varios');
+
+        
+
+    }
+
         public function eliminar_categoria($id) {
         
         $this->db->db_debug = FALSE;
