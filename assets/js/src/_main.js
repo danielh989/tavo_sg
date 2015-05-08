@@ -14,4 +14,5 @@ $(function() {
     gestionarProductos();
     gestionarPedidos();
     formatoPagos();
+    gestionarMesas();
 });

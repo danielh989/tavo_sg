@@ -13,6 +13,27 @@ class Main extends CI_Controller
 		$this->load->model('main_model');
 		$this->load->helper(array('url'));
 		$this->load->library('session');
+
+
+	}
+
+
+
+	public function editar_mesas(){
+
+		$data['mesas']=$this->main_model->getMesas();
+
+		$this->load->view('editar_mesas',$data);
+	}
+
+	public function submit_mesa(){
+		//$_POST['id']=9;
+		//$_POST['numero']=20;
+		//$_POST['nombre']='Square 20';
+
+		//$this->main_model->agregar_mesa($this->input->post());
+
+		$this->main_model->agregar_mesa($this->input->post());
 	}
 
 	/**

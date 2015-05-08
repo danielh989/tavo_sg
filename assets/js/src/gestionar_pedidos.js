@@ -3,6 +3,7 @@
 * (Agregar productos, cambiar mesa, pagar)
 */
 function gestionarPedidos() {
+
   $('.btn-eliminar').on('click', function() {
     var type = 'post',
         url = '/tavo_sg/main/eliminar_producto_pedido',

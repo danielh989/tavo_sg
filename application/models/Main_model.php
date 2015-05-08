@@ -5,7 +5,39 @@ class Main_model extends CI_Model
 {
     
     public function __construct() {
+
+        
+
         parent::__construct();
+        //$this->output->enable_profiler(TRUE);
+
+    }
+
+
+    public function submit_mesa($post){
+
+        $this->db->db_debug = FALSE;
+
+        if(empty($post['id'])){
+            $this->db->set($post);
+            $this->db->insert('mesas');
+        }else{
+            $this->db->set($post);
+            $this->db->where('id',$post['id']);
+            $this->db->update('mesas');
+        }
+
+        if($this->db->error()['code']==1062){
+            echo 'El nombre o numero de mesa ya existe';
+        }else{
+            echo 'insertada con exito';
+        }
+        
+
+    }
+
+    public function getMesas(){
+        return $this->db->get('mesas')->result();
     }
     
     public function mesas_activas() {
