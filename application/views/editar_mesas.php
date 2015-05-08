@@ -37,9 +37,10 @@
 		<?php foreach ($mesas as $row):?>
 			<a href="#" class="table-unit agregar-mesa" data-toggle="modal" data-target="#myModal">
 				<div class="number-wrapper">
-					<p hidden id="id" data-id="<?=$row->id?>"></p>
-					<h2 id="numero" class="number" data-numero="<?=$row->numero?>"><?=$row->numero?></h2>
-					<h4 id="nombre" data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
+				<button type="button" class="close eliminar_mesa" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<p hidden data-id="<?=$row->id?>"></p>
+					<h2 class="number" data-numero="<?=$row->numero?>"><?=$row->numero?></h2>
+					<h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
 				</div>
 			</a>
 		<?php endforeach;?>
@@ -61,17 +62,22 @@
 		        <h2 class="modal-title text-center" id="myModalLabel">Editar Mesa</h2>
 		      </div>
 		      <div class="modal-body">
-
-		      <form action="" class="form-group">
-		      	<p><label for="numero">Numero</label></p>
-		      	<input type="text" name="numero">
-		      	<p><label for="nombre">Nombre</label></p>
-		      	<input type="text" name="nombre">
-		      	<input type="hidden" name="id">
-		      </form>
+						<div class="form-group">
+				      <form id="form-mesa" action="submit_mesa" method="post">
+				      	<p><label for="numero">Numero</label></p>
+				      	<input type="text" name="numero" class="form-control">
+				      	<p><label for="nombre">Nombre</label></p>
+				      	<input type="text" name="nombre" class="form-control">
+				      	<input type="hidden" name="id">
+				      	
+				     
+			      </div>
+			      <span class="error"></span>
 		      </div>
 		      <div class="modal-footer">
+		      <input type="submit" value="Guardar">
 		      </div>
+		      </form>
 		    </div>
 		  </div>
 		</div>

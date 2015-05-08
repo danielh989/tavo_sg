@@ -13,6 +13,17 @@ class Main_model extends CI_Model
 
     }
 
+    public function eliminar_mesa($id){
+
+        $this->db->db_debug = FALSE;
+
+        $this->db->where('id',$id);
+        $this->db->delete('mesas');
+
+        echo json_encode($this->db->error());
+
+    }
+
 
     public function submit_mesa($post){
 
@@ -27,11 +38,7 @@ class Main_model extends CI_Model
             $this->db->update('mesas');
         }
 
-        if($this->db->error()['code']==1062){
-            echo 'El nombre o numero de mesa ya existe';
-        }else{
-            echo 'insertada con exito';
-        }
+        echo json_encode($this->db->error());
         
 
     }

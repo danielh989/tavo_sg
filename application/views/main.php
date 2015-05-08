@@ -25,6 +25,9 @@
 				<a href="<?=base_url('main/productos')?>">Productos</a>
 			</li>
 			<li>
+				<a href="<?=base_url('main/editar_mesas')?>">Mesas</a>
+			</li>
+			<li>
 				<a href="#">Cerrar Sesión</a>
 			</li>
 		</ul>

@@ -26,14 +26,22 @@ class Main extends CI_Controller
 		$this->load->view('editar_mesas',$data);
 	}
 
+
 	public function submit_mesa(){
-		//$_POST['id']=9;
-		//$_POST['numero']=20;
-		//$_POST['nombre']='Square 20';
 
-		//$this->main_model->agregar_mesa($this->input->post());
 
-		$this->main_model->agregar_mesa($this->input->post());
+
+		$this->main_model->submit_mesa($this->input->post());
+
+
+	}
+
+	public function eliminar_mesa(){
+
+
+
+		$this->main_model->eliminar_mesa($this->input->post('id_mesa'));
+
 	}
 
 	/**
