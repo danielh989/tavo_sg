@@ -198,11 +198,15 @@ function mesasDisponibles() {
 *
 */
 function formatoPagos(){
-	$('#efectivo, #debito').priceFormat({
-    prefix: 'Bs.F ',
-    centsSeparator: ',',
-    thousandsSeparator: '.'
-	});
+	/**
+	* HAY UN CONFLICTO ENTRE ESTA FUNCION Y LA QUE LE SIGUE
+	* !!!REVISAR!!!
+	*/
+	// $('#efectivo, #debito').priceFormat({
+	// 	prefix: 'Bs.F ',
+	// 	centsSeparator: ',',
+	// 	thousandsSeparator: '.'
+	// });
 
 	$('input[type=radio]').on('click', function(){
 		var sel = $(this).attr('value'),
@@ -231,30 +235,17 @@ function formatoPagos(){
 * Gestionar los productos a nivel de Administrador
 */
 function gestionarMesas() {
-
-
   // Editar una mesa
   $('.agregar-mesa').on('click', function() {
-
-
     console.log('ajaaaaaaaaaaaa');
-
-
-      var mesa = $(this).closest('div'),
-          id = mesa.data('id'),
-          nombre = mesa.data('nombre'),
-          numero = mesa.data('numero');
-
-
-      $('input[name=id]').val(id);
-      $('input[name=nombre]').val(nombre);
-      $('input[name=numero]').val(numero);
-
-
+    var mesa = $(this).closest('div'),
+        id = mesa.data('id'),
+        nombre = mesa.data('nombre'),
+        numero = mesa.data('numero');
+    $('input[name=id]').val(id);
+    $('input[name=nombre]').val(nombre);
+    $('input[name=numero]').val(numero);
   });
-
-
-
 }
 /**
 * Gestionar los detalles de un pedido

@@ -3,11 +3,15 @@
 *
 */
 function formatoPagos(){
-	$('#efectivo, #debito').priceFormat({
-    prefix: 'Bs.F ',
-    centsSeparator: ',',
-    thousandsSeparator: '.'
-	});
+	/**
+	* HAY UN CONFLICTO ENTRE ESTA FUNCION Y LA QUE LE SIGUE
+	* !!!REVISAR!!!
+	*/
+	// $('#efectivo, #debito').priceFormat({
+	// 	prefix: 'Bs.F ',
+	// 	centsSeparator: ',',
+	// 	thousandsSeparator: '.'
+	// });
 
 	$('input[type=radio]').on('click', function(){
 		var sel = $(this).attr('value'),
