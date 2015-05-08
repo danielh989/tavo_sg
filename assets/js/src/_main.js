@@ -15,4 +15,5 @@ $(function() {
     gestionarPedidos();
     formatoPagos();
     gestionarMesas();
+    gestionarCategorias();
 });

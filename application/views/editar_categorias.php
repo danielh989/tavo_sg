@@ -31,19 +31,18 @@
             <div class="table-container">
 
                 <!-- Mesas abiertas -->
-                <?php foreach ($mesas as $row):?>
-                <a href="#" class="table-unit agregar-mesa" data-toggle="modal" data-target="#myModal">
+                <?php foreach ($categorias as $row):?>
+                <a href="#" class="table-unit agregar-categoria" data-toggle="modal" data-target="#myModal">
                 <div class="number-wrapper">
-                    <button type="button" class="close eliminar_mesa" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close eliminar_categoria" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <p hidden data-id="<?=$row->id?>"></p>
-                    <h2 class="number" data-numero="<?=$row->numero?>"><?=$row->numero?></h2>
                     <h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
                 </div>
                 </a>
                 <?php endforeach;?>
 
                 <!-- Agregar mesa -->
-                <a href="#" class="table-unit agregar-mesa" data-toggle="modal" data-target="#myModal">
+                <a href="#" class="table-unit agregar-categoria" data-toggle="modal" data-target="#myModal">
                 <div class="number-wrapper">
                     <h2 class="number">+</h2>
                 </div>
@@ -54,13 +53,11 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h2 class="modal-title text-center" id="myModalLabel">Editar Mesa</h2>
+                                <h2 class="modal-title text-center" id="myModalLabel">Editar Categoria</h2>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <form id="form-mesa" action="submit_mesa" method="post">
-                                        <p><label for="numero">Numero</label></p>
-                                        <input type="text" name="numero" class="form-control">
+                                    <form id="form-categoria" action="submit_categoria" method="post">
                                         <p><label for="nombre">Nombre</label></p>
                                         <input type="text" name="nombre" class="form-control">
                                         <input type="hidden" name="id">

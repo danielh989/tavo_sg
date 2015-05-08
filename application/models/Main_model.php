@@ -5,45 +5,73 @@ class Main_model extends CI_Model
 {
     
     public function __construct() {
-
         
-
         parent::__construct();
+        
         //$this->output->enable_profiler(TRUE);
-
+        
+        
     }
 
-    public function eliminar_mesa($id){
-
+        public function eliminar_categoria($id) {
+        
         $this->db->db_debug = FALSE;
-
-        $this->db->where('id',$id);
-        $this->db->delete('mesas');
-
+        
+        $this->db->where('id', $id);
+        $this->db->delete('categorias');
+        
         echo json_encode($this->db->error());
-
     }
-
-
-    public function submit_mesa($post){
-
+    
+    public function submit_categoria($post) {
+        
         $this->db->db_debug = FALSE;
-
-        if(empty($post['id'])){
+        
+        if (empty($post['id'])) {
+            $this->db->set($post);
+            $this->db->insert('categorias');
+        } 
+        else {
+            $this->db->set($post);
+            $this->db->where('id', $post['id']);
+            $this->db->update('categorias');
+        }
+        
+        echo json_encode($this->db->error());
+    }
+    
+    public function getCategorias() {
+        return $this->db->get('categorias')->result();
+    }
+    
+    public function eliminar_mesa($id) {
+        
+        $this->db->db_debug = FALSE;
+        
+        $this->db->where('id', $id);
+        $this->db->delete('mesas');
+        
+        echo json_encode($this->db->error());
+    }
+    
+    public function submit_mesa($post) {
+        
+        $this->db->db_debug = FALSE;
+        
+        if (empty($post['id'])) {
             $this->db->set($post);
             $this->db->insert('mesas');
-        }else{
+        } 
+        else {
             $this->db->set($post);
-            $this->db->where('id',$post['id']);
+            $this->db->where('id', $post['id']);
             $this->db->update('mesas');
         }
-
-        echo json_encode($this->db->error());
         
-
+        echo json_encode($this->db->error());
     }
-
-    public function getMesas(){
+    
+    public function getMesas() {
         return $this->db->get('mesas')->result();
     }
     
@@ -225,9 +253,9 @@ class Main_model extends CI_Model
             return $this->db->update('productos');
         }
     }
-
-    public function eliminar_producto($id){
-            $this->db->where('id',$id);
-            $this->db->delete('productos');
+    
+    public function eliminar_producto($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('productos');
     }
 }
