@@ -14,19 +14,34 @@
             <link rel="stylesheet" href="<?=base_url('assets/css/style.css')?>">
         </head>
         <body>
-            <nav class="navbar navbar-inverse" role="navigation">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">Ayuda</a>
-                    </li>
-                    <li>
-                        <a href="<?=base_url('main/productos')?>">Productos</a>
-                    </li>
-                    <li>
-                        <a href="#">Cerrar Sesión</a>
-                    </li>
-                </ul>
-            </nav>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#">Ayuda</a>
+            </li>
+            <li>
+                <a href="<?=base_url('main/productos')?>">Productos</a>
+            </li>
+            <li>
+                <a href="<?=base_url('main/editar_mesas')?>">Mesas</a>
+            </li>
+
+            <li>
+                <a href="<?=base_url('main/cuentas')?>">Cuentas</a>
+            </li>
+
+            <li>
+                <a href="<?=base_url('main/editar_categorias')?>">Categorias</a>
+            </li>
+
+            <li>
+                <a href="<?=base_url('main/descuento_familiar')?>">Descuento Familiar</a>
+            </li>
+            <li>
+                <a href="#">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </nav>
 
             <div class="table-container">
 

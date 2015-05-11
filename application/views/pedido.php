@@ -16,6 +16,35 @@
 </head>
 <body>
 
+	<nav class="navbar navbar-inverse" role="navigation">
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="#">Ayuda</a>
+			</li>
+			<li>
+				<a href="<?=base_url('main/productos')?>">Productos</a>
+			</li>
+			<li>
+				<a href="<?=base_url('main/editar_mesas')?>">Mesas</a>
+			</li>
+
+			<li>
+				<a href="<?=base_url('main/cuentas')?>">Cuentas</a>
+			</li>
+
+			<li>
+				<a href="<?=base_url('main/editar_categorias')?>">Categorias</a>
+			</li>
+
+			<li>
+				<a href="<?=base_url('main/descuento_familiar')?>">Descuento Familiar</a>
+			</li>
+			<li>
+				<a href="#">Cerrar Sesión</a>
+			</li>
+		</ul>
+	</nav>
+
 	<div class="pedido-container">
 		<div class="go-back">
 			<a href="<?=base_url('main')?>"><span class="glyphicon glyphicon-th"></span></a>
@@ -83,7 +112,7 @@
 						<h2 class="detalles qty">x<?=$row->cantidad?></h2>
 						<h4 class="detalles">Bs.F <?=$row->precio_total?></h4>
 						<div class="acciones">
-							<button data-pedido="<?=$detalle->id?>" data-producto="<?=$producto->id_producto?>" class="btn btn-danger btn-pedido btn-eliminar-devuelto" title="Eliminar">Eliminar</button>
+							<button data-pedido="<?=$detalle->id?>" data-producto="<?=$row->id_producto?>" class="btn btn-danger btn-pedido btn-eliminar-devuelto" title="Eliminar">Eliminar</button>
 						</div>
 					</div>
 				<?php endforeach; ?>

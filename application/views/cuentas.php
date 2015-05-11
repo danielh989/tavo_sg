@@ -15,7 +15,6 @@
         <![endif]-->
     </head>
     <body>
-
         <nav class="navbar navbar-inverse" role="navigation">
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -47,30 +46,23 @@
         <div class="container">
             <div class="col-md-8 col-md-offset-2">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-agregar" data-toggle="modal" data-target="#myModal">
-                Agregar
-                </button>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Categoría</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th></th>
+                            <th>Pedido</th>
+                            <th>Mesa</th>
+                            <th>A pagar</th>
+                            <th>P. Debito</th>
+                            <th>P. Efectivo</th>
+                            <th>Devuelto</th>
+                            <th>Desc. F.</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($productos as $row): ?>
-                        <tr data-id-producto="<?= $row->id ?>">
-                            <td class="nombre"><?= $row->nombre ?></td>
-                            <td class="categoria" data-idcat="<?=$row->id_cat?>"><?= $row->categoria ?></td>
-                            <td class="descripcion"><?= $row->descripcion ?></td>
-                            <td class="precio"><?= $row->precio ?></td>
-                            <td>
-                                <span><button class="btn btn-default btn-editar" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-edit" type="submit"></span></button></span>
-                                <span><button class="btn btn-default btn-eliminar" data-toggle="modal" data-target="#eliminarProducto"><span class="glyphicon glyphicon-remove" type="submit"></span></button></span>
-                            </td>
+                        <?php foreach ($cuentas as $row): ?>
+                            <td><a href="<?=base_url("main/pedido/$row->id")?>"><?= $row->fecha ?></a></td>
+                            
+                   
                         </tr>
                         <?php endforeach ?>
 

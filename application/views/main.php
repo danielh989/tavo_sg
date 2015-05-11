@@ -29,6 +29,10 @@
 			</li>
 
 			<li>
+				<a href="<?=base_url('main/cuentas')?>">Cuentas</a>
+			</li>
+
+			<li>
 				<a href="<?=base_url('main/editar_categorias')?>">Categorias</a>
 			</li>
 

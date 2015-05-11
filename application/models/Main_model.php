@@ -7,31 +7,50 @@ class Main_model extends CI_Model
     public function __construct() {
         
         parent::__construct();
+
+
         
         //$this->output->enable_profiler(TRUE);
         
         
     }
-
-
-    public function getDescuento(){
-        $this->db->where('id',1);
+    
+    public function getCuentas() {
+        
+        $this->db->select('cuentas.id,
+            cuentas.total_pagar,
+            cuentas.efectivo,
+            cuentas.debito,
+            cuentas.total_devuelto,
+            cuentas.id_pedido,
+            pedidos.fecha,
+            pedidos.id_mesa,
+            pedidos.descuento,
+            pedidos.estado,
+            mesas.numero as numero_mesa,
+            mesas.nombre as nombre_mesa');
+        
+        $this->db->join('pedidos', 'cuentas.id_pedido = pedidos.id', 'inner');
+        $this->db->join('mesas', 'pedidos.id_mesa = mesas.id', 'inner');
+        
+        return $this->db->get('cuentas')->result();
+    }
+    
+    public function getDescuento() {
+        $this->db->where('id', 1);
         return $this->db->get('varios')->row();
     }
-
-    public function submit_descuento($descuento){
-
-
-        $this->db->set('valor',$descuento);
-        $this->db->where('id',1);
+    
+    public function submit_descuento($descuento) {
+        
+        $this->db->set('valor', $descuento);
+        $this->db->where('id', 1);
         $this->db->update('varios');
-
-        
-
     }
-
-        public function eliminar_categoria($id) {
+    
+    public function eliminar_categoria($id) {
         
+        //Se deben deshablitar los mensajes de error para poder capturarlos con la funcion de abajo
         $this->db->db_debug = FALSE;
         
         $this->db->where('id', $id);

@@ -15,23 +15,25 @@ class Main extends CI_Controller
         $this->load->helper(array('url'));
         $this->load->library('session');
     }
-
-
-    public function submit_descuento(){
-
+    
+    public function cuentas() {
+        
+        $data['cuentas'] = $this->main_model->getCuentas();
+        $this->load->view('cuentas', $data);
+    }
+    
+    public function submit_descuento() {
+        
         $this->main_model->submit_descuento($this->input->post('descuento'));
         redirect('/main/descuento_familiar');
-
     }
-
-    public function descuento_familiar(){
-
-        $data['descuento']=$this->main_model->getDescuento();
-
-        $this->load->view('descuento_familiar',$data);
+    
+    public function descuento_familiar() {
+        
+        $data['descuento'] = $this->main_model->getDescuento();
+        
+        $this->load->view('descuento_familiar', $data);
     }
-
-
     
     public function editar_categorias() {
         
@@ -135,6 +137,7 @@ class Main extends CI_Controller
         
         // Total acumulado del pedido
         $total = $this->main_model->total_pedido($id_pedido);
+
         $data['total'] = explode('.', $total);
         
         // Formateo del precio para la vista
