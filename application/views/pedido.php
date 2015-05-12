@@ -52,7 +52,7 @@
 
 		<header>
 			<h1 class="numero-mesa">Mesa <?=$detalle->numero?></h1>
-			<?php var_dump($detalle) ?>
+
 		</header>
 
 		<hr>

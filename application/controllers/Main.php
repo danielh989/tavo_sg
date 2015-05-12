@@ -14,8 +14,9 @@ class Main extends CI_Controller
         $this->load->model('main_model');
         $this->load->helper(array('url'));
         $this->load->library('session');
-
+        
         //$this->output->enable_profiler(TRUE);
+        
     }
     
     public function cuentas() {
@@ -26,8 +27,15 @@ class Main extends CI_Controller
     
     public function submit_descuento() {
         
-        $this->main_model->submit_descuento($this->input->post('descuento'));
-        redirect('/main/descuento_familiar');
+        if ($this->input->post('descuento')) {
+            $this->main_model->submit_descuento($this->input->post('descuento'));
+            redirect('/main/descuento_familiar');
+        } 
+        else {
+            show_404('page');
+            
+            break;
+        }
     }
     
     public function descuento_familiar() {
@@ -45,13 +53,22 @@ class Main extends CI_Controller
     }
     
     public function submit_categoria() {
-        
-        $this->main_model->submit_categoria($this->input->post());
+        if ($this->input->post()) {
+            $this->main_model->submit_categoria($this->input->post());
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     public function eliminar_categoria() {
-        
-        $this->main_model->eliminar_categoria($this->input->post('id_categoria'));
+        if ($this->input->post('id_categoria')) {
+            
+            $this->main_model->eliminar_categoria($this->input->post('id_categoria'));
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     public function editar_mesas() {
@@ -63,12 +80,22 @@ class Main extends CI_Controller
     
     public function submit_mesa() {
         
-        $this->main_model->submit_mesa($this->input->post());
+        if ($this->input->post()) {
+            $this->main_model->submit_mesa($this->input->post());
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     public function eliminar_mesa() {
         
-        $this->main_model->eliminar_mesa($this->input->post('id_mesa'));
+        if ($this->input->post('id_mesa')) {
+            $this->main_model->eliminar_mesa($this->input->post('id_mesa'));
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     /**
@@ -133,21 +160,30 @@ class Main extends CI_Controller
     public function pedido($id_pedido) {
         
         // Detalles del pedido
-        $data['detalle'] = $this->main_model->detalle_pedido($id_pedido);
+        if (!$data['detalle'] = $this->main_model->detalle_pedido($id_pedido)) {
+            
+            show_404('page');
+            
+            break;
+        }
         $data['devoluciones'] = $this->main_model->productos_devueltos($id_pedido);
         $this->session->set_flashdata('id_pedido', $id_pedido);
         
         // Total acumulado del pedido
-        $data['total']  = $this->main_model->total_pedido($id_pedido);
-
-
+        $data['total'] = $this->main_model->total_pedido($id_pedido);
+        
         //Total formateado paral a vista
         $data['total_f'] = array_filter(explode('.', $data['total']));
         
         // Productos del pedido
         $data['productos'] = $this->main_model->productos_pedido($id_pedido);
         
-        $this->load->view('pedido', $data);
+        if ($data['detalle']->estado == 'Cerrado') {
+            $this->load->view('detalle_pedido', $data);
+        } 
+        else {
+            $this->load->view('pedido', $data);
+        }
     }
     
     public function agregar_producto() {
@@ -160,26 +196,45 @@ class Main extends CI_Controller
     }
     
     public function eliminar_producto_pedido() {
-        $this->main_model->eliminar_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+        if ($this->input->post('id_pedido')) {
+            $this->main_model->eliminar_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     public function eliminar_producto_devuelto() {
-        $this->main_model->eliminar_producto_devuelto($this->input->post('id_pedido'), $this->input->post('id_producto'));
+        if ($this->input->post('id_pedido')) {
+            $this->main_model->eliminar_producto_devuelto($this->input->post('id_pedido'), $this->input->post('id_producto'));
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     public function devolver_producto_pedido() {
-        $this->main_model->devolver_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+        if ($this->input->post('id_pedido')) {
+            $this->main_model->devolver_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     public function pagar_pedido() {
         
-
-        $efectivo = $this->input->post('efectivo');
-        $debito = $this->input->post('debito');
-        
-        $id_pedido = $this->session->flashdata('id_pedido');
-        $this->main_model->pagar_pedido($id_pedido, $efectivo, $debito);
-        redirect('/main/', 'refresh');
+        if ($this->input->post()) {
+            $efectivo = $this->input->post('efectivo');
+            $debito = $this->input->post('debito');
+            
+            $id_pedido = $this->session->flashdata('id_pedido');
+            $this->main_model->pagar_pedido($id_pedido, $efectivo, $debito);
+            redirect('/main/', 'refresh');
+        } 
+        else {
+            show_404('page');
+        }
     }
     
     /**
