@@ -97,5 +97,8 @@
             <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
             <script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
             <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
+
+            <script>
+    $(document).ready(function(){ gestionarMesas(); })</script>
         </body>
     </body>

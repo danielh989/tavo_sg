@@ -2,7 +2,7 @@
  * Formato de los inputs en el modal de pago
  *
  */
-function formatoPagos() {
+function formatoPago() {
     var efectivo = $('#efectivo');
     var debito = $('#debito');
     var total = $('#total_form').data('total');

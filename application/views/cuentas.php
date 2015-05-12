@@ -60,7 +60,15 @@
                     </thead>
                     <tbody>
                         <?php foreach ($cuentas as $row): ?>
-                            <td><a href="<?=base_url("main/pedido/$row->id")?>"><?= $row->fecha ?></a></td>
+
+                     
+                            <td><a href="<?=base_url("main/pedido/$row->id_pedido")?>"><?= $row->fecha ?></a></td>
+                             <td><?= $row->numero_mesa ?></td>
+                             <td><?= $row->total_pagar ?></td>
+                             <td><?= $row->debito ?></td>
+                             <td><?= $row->efectivo ?></td>
+                             <td><?= $row->total_devuelto ?></td>
+                             <td><?= $row->descuento ?></td>
                             
                    
                         </tr>
@@ -72,63 +80,6 @@
             </div>
         </div>
 
-        <!-- Modal Editar -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Agregar Producto</h4>
-                    </div>
-                    <div class="modal-body">
-                        <span class="error"></span>
-                        <form action="agregar_producto" id="producto" method="post">
-                            <div class="form-group row">
-
-                                <div class="col-md-6">
-                                    <input type="text" hidden name="id" value="">
-                                    <input type="text" name="nombre" class="form-control" placeholder="Nombre"><p></p>
-                                    <div class="input-group">
-                                        <input type="text" name="precio" class="form-control" id="precio" placeholder="Precio">
-                                        <div class="input-group-addon">Bs.F.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                    <select name="id_cat" id="id_cat" class="form-control" placeholder="Categoría">
-                                        <option value="">Categoría</option>
-                                    </select><p></p>
-                                    <textarea name="descripcion" id="" cols="30" rows="6" class="form-control"></textarea>
-                                </div>
-                            </div>  
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary btn-guardar">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Eliminar -->
-        <div class="modal fade" id="eliminarProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Eliminar Producto?</h4>
-              </div>
-              <div class="modal-body">
-                <p>El producto se eliminara permanentemente</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <a type="button" href="" class="btn btn-danger">Continuar</a>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 
         <!-- jQuery -->
         <script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
@@ -136,5 +87,7 @@
         <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
         <!-- Custom JS -->
         <script src="<?=base_url('assets/js/built.js')?>"></script>
+
+        
     </body>
 </html>

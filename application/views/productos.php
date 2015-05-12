@@ -143,6 +143,8 @@
         <!-- Bootstrap JavaScript -->
         <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
         <!-- Custom JS -->
-        <script src="<?=base_url('assets/js/built.js')?>"></script>
+        <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
+        <script>
+    $(document).ready(function(){ gestionarProductos(); })</script>
     </body>
 </html>

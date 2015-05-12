@@ -52,6 +52,7 @@
 
 		<header>
 			<h1 class="numero-mesa">Mesa <?=$detalle->numero?></h1>
+			<?php var_dump($detalle) ?>
 		</header>
 
 		<hr>
@@ -237,5 +238,8 @@
 	<script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/jquery.maskMoney.min.js')?>"></script>
+
+	<script>
+	$(document).ready(function(){ formatoPago(); gestionarPedidos();})</script>
 </body>
 </html>

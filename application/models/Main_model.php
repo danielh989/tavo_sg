@@ -10,7 +10,7 @@ class Main_model extends CI_Model
 
 
         
-        //$this->output->enable_profiler(TRUE);
+        
         
         
     }

@@ -14,6 +14,8 @@ class Main extends CI_Controller
         $this->load->model('main_model');
         $this->load->helper(array('url'));
         $this->load->library('session');
+
+        //$this->output->enable_profiler(TRUE);
     }
     
     public function cuentas() {
