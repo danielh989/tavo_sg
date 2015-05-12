@@ -62,7 +62,7 @@
 				<?php if(empty($total)): ?>
 					<span>Bs.F </span>0
 				<?php else: ?>
-					<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
+					<span>Bs.F </span><?=$total_f[0]?><span>.<?=$total_f[1]?></span>
 				<?php endif; ?>
 				<h4 class="text-center">Total Orden</h4>
 			</div>
@@ -151,7 +151,7 @@
 								<?php if(empty($total)): ?>
 									<span>Bs.F </span>0
 								<?php else: ?>
-									<span>Bs.F </span><?=$total[0]?><span>.<?=$total[1]?></span>
+									<span>Bs.F </span><?=$total_f[0]?><span>.<?=$total_f[1]?></span>
 								<?php endif; ?>
 								<h4 class="text-center">Total Orden</h4>
 							</div>
@@ -164,10 +164,11 @@
 									<label for="debito">Débito/Credito</label>
 								</div>
 								<div class="inputs">
-									<input type="text" name="efectivo" id="efectivo" value="0" spellcheck="false">
-									<input type="text" name="debito" id="debito" value="0" spellcheck="false">
-									<label><input type="radio" name="pago" data-total="<?=$total[0].$total[1]?>" value="efectivo"> Solo efectivo</label>
-									<label><input type="radio" name="pago" data-total="<?=$total[0].$total[1]?>" value="debito"> Solo debito</label>
+									<input type="text" name="efectivo" id="efectivo" value="0.00" spellcheck="false" maxlength="15">
+									<input type="text" name="debito" id="debito" value="0.00" spellcheck="false" maxlength="15">
+									<input hidden id="total_form" data-total="<?=$total?>">
+									<label><input type="radio" name="pago" value="efectivo"> Solo efectivo</label>
+									<label><input type="radio" name="pago" value="debito"> Solo debito</label>
 								</div>
 						</div>
 
@@ -234,7 +235,7 @@
 	<script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
 	<script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
-	<script src="<?=base_url('assets/js/jquery.price_format.2.0.min.js')?>"></script>
 	<script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
+	<script src="<?=base_url('assets/js/jquery.maskMoney.min.js')?>"></script>
 </body>
 </html>

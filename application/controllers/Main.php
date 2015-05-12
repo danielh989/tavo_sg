@@ -136,12 +136,11 @@ class Main extends CI_Controller
         $this->session->set_flashdata('id_pedido', $id_pedido);
         
         // Total acumulado del pedido
-        $total = $this->main_model->total_pedido($id_pedido);
+        $data['total']  = $this->main_model->total_pedido($id_pedido);
 
-        $data['total'] = explode('.', $total);
-        
-        // Formateo del precio para la vista
-        $data['total'] = array_filter($data['total']);
+
+        //Total formateado paral a vista
+        $data['total_f'] = array_filter(explode('.', $data['total']));
         
         // Productos del pedido
         $data['productos'] = $this->main_model->productos_pedido($id_pedido);
@@ -172,11 +171,9 @@ class Main extends CI_Controller
     
     public function pagar_pedido() {
         
-        // Formateando los valores para la db
-        $rawCash = explode(' ', $this->input->post('efectivo'));
-        $rawDebit = explode(' ', $this->input->post('debito'));
-        $efectivo = (float)str_replace(',', '.', str_replace('.', '', end($rawCash)));
-        $debito = (float)str_replace(',', '.', str_replace('.', '', end($rawDebit)));
+
+        $efectivo = $this->input->post('efectivo');
+        $debito = $this->input->post('debito');
         
         $id_pedido = $this->session->flashdata('id_pedido');
         $this->main_model->pagar_pedido($id_pedido, $efectivo, $debito);
