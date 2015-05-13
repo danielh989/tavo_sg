@@ -268,7 +268,9 @@ function gestionarCategorias() {
                 if ($.parseJSON(response).code == 1451) {
                     alert('No se puede eliminar la categoria porque pertenece a un pedido');
                 } else {
-                    location.reload();
+
+                    categoria.closest('a').remove();
+                    //location.reload();
                 }
             }
         });
@@ -323,7 +325,8 @@ function gestionarMesas() {
                 if ($.parseJSON(response).code == 1451) {
                     alert('No se puede eliminar la mesa porque pertenece a un pedido');
                 } else {
-                    location.reload();
+                    mesa.closest('a').remove();
+                    //location.reload();
                 }
             }
         });
