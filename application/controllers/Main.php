@@ -11,11 +11,11 @@ class Main extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model('main_model');
-        $this->load->helper(array('url'));
+        $this->load->model('main_model'); 
         $this->load->library('session');
         
         //$this->output->enable_profiler(TRUE);
+        
         
     }
     
