@@ -18,6 +18,7 @@ class Cuentas_model extends CI_Model
         
         $this->db->join('pedidos', 'cuentas.id_pedido = pedidos.id', 'inner');
         $this->db->join('mesas', 'pedidos.id_mesa = mesas.id', 'inner');
+        $this->db->order_by('pedidos.fecha','DESC');
         
         return $this->db->get('cuentas')->result();
     }

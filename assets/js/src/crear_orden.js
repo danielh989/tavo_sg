@@ -20,7 +20,7 @@ function crearOrden() {
     // Funcion para traer las mesas disponibles
     $('.table-add').on('click', function() {
         var that = $(this),
-            url = 'main/getMesas',
+            url = '/tavo_sg/mesas/libres',
             type = 'get',
             data = {};
         $.ajax({
@@ -30,7 +30,7 @@ function crearOrden() {
             success: function(mesas) {
                 body.html("");
                 footer.html("");
-                $.get('assets/templates/mesas_disponibles.mst', function(template) {
+                $.get('/tavo_sg/assets/templates/mesas_disponibles.mst', function(template) {
                     $.each(mesas, function(index, value) {
                         body.append(Mustache.render(template, mesas[index]));
                     });
@@ -41,7 +41,7 @@ function crearOrden() {
     // Funcion para traer categorias
     $(body).on('click', '.mesa-libre', function() {
         var that = $(this),
-            url = 'main/getCategorias',
+            url = 'categorias/getJSON',
             type = 'post',
             data = {};
         // Guardando el ID de la mesa seleccionada
@@ -70,7 +70,7 @@ function crearOrden() {
     // Traer los productos de una categoria
     $('.modal-body').on('click', '.categoria', function() {
         var that = $(this),
-            url = 'main/getProductosXCategoria',
+            url = 'productos/getJSON',
             type = 'post',
             data = {};
         data['id_cat'] = $(this).data('id'); // Guardamos ID de la categoria seleccionada
@@ -143,7 +143,7 @@ function crearOrden() {
     // Completar y generar la orden
     footer.on('click', '.btn-completar', function() {
         var type = 'post',
-            url = 'main/crear_pedido',
+            url = 'pedidos/add',
             data = pedido;
         $.ajax({
             url: url,

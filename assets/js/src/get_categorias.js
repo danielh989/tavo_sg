@@ -9,7 +9,7 @@
  */
 function getCategorias(select, auto, categoria) {
     var type = 'post',
-        url = '/tavo_sg/main/getCategorias',
+        url = '/tavo_sg/categorias/getJSON',
         data = {};
     $.ajax({
         type: type,

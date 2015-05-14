@@ -19,7 +19,7 @@ function gestionarMesas() {
         console.log(id);
         $.ajax({
             type: 'POST',
-            url: 'eliminar_mesa',
+            url: 'mesas/delete',
             data: {
                 id_mesa: id
             },

@@ -17,7 +17,7 @@ function gestionarCategorias() {
         console.log(id);
         $.ajax({
             type: 'POST',
-            url: 'eliminar_categoria',
+            url: 'categorias/delete',
             data: {
                 id_categoria: id
             },

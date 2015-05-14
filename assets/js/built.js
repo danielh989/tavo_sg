@@ -20,7 +20,7 @@ function crearOrden() {
     // Funcion para traer las mesas disponibles
     $('.table-add').on('click', function() {
         var that = $(this),
-            url = 'main/getMesas',
+            url = '/tavo_sg/mesas/libres',
             type = 'get',
             data = {};
         $.ajax({
@@ -30,7 +30,7 @@ function crearOrden() {
             success: function(mesas) {
                 body.html("");
                 footer.html("");
-                $.get('assets/templates/mesas_disponibles.mst', function(template) {
+                $.get('/tavo_sg/assets/templates/mesas_disponibles.mst', function(template) {
                     $.each(mesas, function(index, value) {
                         body.append(Mustache.render(template, mesas[index]));
                     });
@@ -41,7 +41,7 @@ function crearOrden() {
     // Funcion para traer categorias
     $(body).on('click', '.mesa-libre', function() {
         var that = $(this),
-            url = 'main/getCategorias',
+            url = 'categorias/getJSON',
             type = 'post',
             data = {};
         // Guardando el ID de la mesa seleccionada
@@ -70,7 +70,7 @@ function crearOrden() {
     // Traer los productos de una categoria
     $('.modal-body').on('click', '.categoria', function() {
         var that = $(this),
-            url = 'main/getProductosXCategoria',
+            url = 'productos/getJSON',
             type = 'post',
             data = {};
         data['id_cat'] = $(this).data('id'); // Guardamos ID de la categoria seleccionada
@@ -143,7 +143,7 @@ function crearOrden() {
     // Completar y generar la orden
     footer.on('click', '.btn-completar', function() {
         var type = 'post',
-            url = 'main/crear_pedido',
+            url = 'pedidos/add',
             data = pedido;
         $.ajax({
             url: url,
@@ -259,7 +259,7 @@ function gestionarCategorias() {
         console.log(id);
         $.ajax({
             type: 'POST',
-            url: 'eliminar_categoria',
+            url: 'categorias/delete',
             data: {
                 id_categoria: id
             },
@@ -316,7 +316,7 @@ function gestionarMesas() {
         console.log(id);
         $.ajax({
             type: 'POST',
-            url: 'eliminar_mesa',
+            url: 'mesas/delete',
             data: {
                 id_mesa: id
             },
@@ -358,7 +358,7 @@ function gestionarMesas() {
 function gestionarPedidos() {
     $('.btn-eliminar').on('click', function() {
         var type = 'post',
-            url = '/tavo_sg/main/eliminar_producto_pedido',
+            url = '/tavo_sg/Productosxpedido/delete',
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
@@ -374,7 +374,7 @@ function gestionarPedidos() {
     });
     $('.btn-eliminar-devuelto').on('click', function() {
         var type = 'post',
-            url = '/tavo_sg/main/eliminar_producto_devuelto',
+            url = '/tavo_sg/Productosxpedido/deleteDevuelto',
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
@@ -384,13 +384,13 @@ function gestionarPedidos() {
             url: url,
             data: data,
             success: function(response) {
-                location.reload();
+                location.reload(); 
             }
         });
     });
     $('.btn-devolver').on('click', function() {
         var type = 'post',
-            url = '/tavo_sg/main/devolver_producto_pedido',
+            url = '/tavo_sg/Productosxpedido/devolver',
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
@@ -449,7 +449,7 @@ function gestionarProductos() {
     $('.table tbody .btn-eliminar').on('click', function() {
         var row = $(this).closest('tr'),
             idProducto = row.data('id-producto');
-        $('#eliminarProducto a').attr('href', 'eliminar/' + idProducto);
+        $('#eliminarProducto a').attr('href', 'productos/delete/' + idProducto);
     });
 }
 /**
@@ -463,7 +463,7 @@ function gestionarProductos() {
  */
 function getCategorias(select, auto, categoria) {
     var type = 'post',
-        url = '/tavo_sg/main/getCategorias',
+        url = '/tavo_sg/categorias/getJSON',
         data = {};
     $.ajax({
         type: type,

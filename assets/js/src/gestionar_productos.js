@@ -43,6 +43,6 @@ function gestionarProductos() {
     $('.table tbody .btn-eliminar').on('click', function() {
         var row = $(this).closest('tr'),
             idProducto = row.data('id-producto');
-        $('#eliminarProducto a').attr('href', 'eliminar/' + idProducto);
+        $('#eliminarProducto a').attr('href', 'productos/delete/' + idProducto);
     });
 }

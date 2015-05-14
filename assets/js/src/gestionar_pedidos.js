@@ -5,7 +5,7 @@
 function gestionarPedidos() {
     $('.btn-eliminar').on('click', function() {
         var type = 'post',
-            url = '/tavo_sg/main/eliminar_producto_pedido',
+            url = '/tavo_sg/Productosxpedido/delete',
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
@@ -21,7 +21,7 @@ function gestionarPedidos() {
     });
     $('.btn-eliminar-devuelto').on('click', function() {
         var type = 'post',
-            url = '/tavo_sg/main/eliminar_producto_devuelto',
+            url = '/tavo_sg/Productosxpedido/deleteDevuelto',
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
@@ -31,13 +31,13 @@ function gestionarPedidos() {
             url: url,
             data: data,
             success: function(response) {
-                location.reload();
+                location.reload(); 
             }
         });
     });
     $('.btn-devolver').on('click', function() {
         var type = 'post',
-            url = '/tavo_sg/main/devolver_producto_pedido',
+            url = '/tavo_sg/Productosxpedido/devolver',
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
