@@ -13,78 +13,15 @@ class Pedidos extends CI_Model
         
         //Muestra detalles de un pedido dado
         $this->db->select('pedidos.*, mesas.numero');
-        $this->db->from('pedidos');
         $this->db->where('pedidos.id', $id);
         $this->db->join('mesas', 'pedidos.id_mesa = mesas.id');
-        $query = $this->db->get();
+        $query = $this->db->get('pedidos');
         return $query->row();
     }
     
-    public function sumTotal($id) {
-        $this->db->select('sum(productosXpedido.precio) as total');
-        $this->db->from('productosXpedido');
-        $this->db->where('productosXpedido.id_pedido', $id);
-        $this->db->where('productosXpedido.devuelto IS NULL');
-        
-        $query = $this->db->get();
-        return $query->row()->total;
-    }
-    
-    public function productos($id_pedido) {
-        
-        //Muestra los productos asociados a un pedido dado, agrupados por producto reflejando cantidad y precio por cantidad
-        $this->db->select('productosXpedido.id, productosXpedido.id_pedido, productosXpedido.id_producto');
-        $this->db->select('count(productosXpedido.id_producto) as cantidad, sum(productosXpedido.precio) as precio_total, productos.nombre');
-        $this->db->join('productos', 'productosXpedido.id_producto = productos.id', 'inner');
-        $this->db->where('productosXpedido.id_pedido', $id_pedido);
-        $this->db->where('productosXpedido.devuelto IS NULL');
-        $this->db->group_by('id_producto');
-        $query = $this->db->get('productosXpedido');
-        
-        return $query->result();
-    }
-    
-    public function pagar($id_pedido, $efectivo, $debito) {
-        
-        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito)");
-    }
-    
-    public function addProducto($id_pedido, $id_producto) {
-        $this->db->query("CALL insertar_producto_pedido($id_pedido, $id_producto)");
-    }
-    
-    public function deleteProducto($id_pedido, $id_producto) {
-        $this->db->where('id_pedido', $id_pedido);
-        $this->db->where('id_producto', $id_producto);
-        $this->db->where('devuelto IS NULL');
-        $this->db->limit(1);
-        
-        //Para eliminar un producto por vez
-        $this->db->delete('productosXpedido');
-    }
-    
-    public function deleteDevuelto($id_pedido, $id_producto) {
-        $this->db->where('id_pedido', $id_pedido);
-        $this->db->where('id_producto', $id_producto);
-        $this->db->where('devuelto', 'Si');
-        $this->db->limit(1);
-        
-        //Para eliminar un producto por vez
-        $this->db->delete('productosXpedido');
-    }
-    
-    public function devolverProducto($id_pedido, $id_producto) {
-        $this->db->where('id_pedido', $id_pedido);
-        $this->db->where('id_producto', $id_producto);
-        $this->db->where('devuelto IS NULL');
-        $this->db->set('devuelto', 'Si');
-        $this->db->limit(1);
-        
-        //Para eliminar un producto por vez
-        $this->db->update('productosXpedido');
-    }
-    
     public function add($id_mesa, $productos) {
+        
+        //Genera un pedido primeramente con el numero de mesa, luego intenta asignar productos a ese pedido y si no encuentra productos, devuelve la transaccion.
         
         $this->db->set('id_mesa', $id_mesa);
         
@@ -109,24 +46,18 @@ class Pedidos extends CI_Model
             $this->db->trans_rollback();
         }
     }
-
+    
+    public function pagar($id_pedido, $efectivo, $debito) {
+        
+        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito)");
+    }
+    
     public function switchMesa($id_pedido, $id_mesa_nueva) {
+        
+        //Cambia un pedido de mesa
         
         $this->db->set('id_mesa', $id_mesa_nueva);
         $this->db->where('id', $id_pedido);
         $this->db->update('pedidos');
-    }
-
-    public function productosDevueltos($id_pedido) {
-        
-        $this->db->select('productosXpedido.id, productosXpedido.id_pedido, productosXpedido.id_producto');
-        $this->db->select('count(productosXpedido.id_producto) as cantidad, sum(productosXpedido.precio) as precio_total, productos.nombre');
-        $this->db->join('productos', 'productosXpedido.id_producto = productos.id', 'inner');
-        $this->db->where('productosXpedido.id_pedido', $id_pedido);
-        $this->db->where('productosXpedido.devuelto', 'Si');
-        $this->db->group_by('id_producto');
-        $query = $this->db->get('productosXpedido');
-        
-        return $query->result();
     }
 }

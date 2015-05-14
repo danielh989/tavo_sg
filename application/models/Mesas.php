@@ -5,18 +5,13 @@ class Mesas extends CI_Model
 {
     
     public function __construct() {
+
+        //$this->output->enable_profiler(TRUE);
         
         parent::__construct();
     }
-    
-       public function delete($id) {
-        
-        $this->db->db_debug = FALSE;
-        
-        $this->db->where('id', $id);
-        $this->db->delete('mesas');
-        
-        echo json_encode($this->db->error());
+    public function index() {
+        return $this->db->get('mesas')->result();
     }
     
     public function add($post) {
@@ -35,11 +30,16 @@ class Mesas extends CI_Model
         
         echo json_encode($this->db->error());
     }
-    
-    public function index() {
-        return $this->db->get('mesas')->result();
+    public function delete($id) {
+        
+        $this->db->db_debug = FALSE;
+        
+        $this->db->where('id', $id);
+        $this->db->delete('mesas');
+        
+        echo json_encode($this->db->error());
     }
-
+    
     public function activas() {
         
         //Mesas con pedidos activos

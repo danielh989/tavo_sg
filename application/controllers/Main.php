@@ -19,6 +19,7 @@ class Main extends CI_Controller
         $this->load->model('mesas'); 
         $this->load->model('pedidos'); 
         $this->load->model('productos'); 
+        $this->load->model('productosxpedido'); 
         
         //$this->output->enable_profiler(TRUE);
         
@@ -175,17 +176,17 @@ class Main extends CI_Controller
             
             break;
         }
-        $data['devoluciones'] = $this->pedidos->productosDevueltos($id_pedido);
+        $data['devoluciones'] = $this->productosxpedido->devueltos($id_pedido);
         $this->session->set_flashdata('id_pedido', $id_pedido);
         
         // Total acumulado del pedido
-        $data['total'] = $this->pedidos->sumTotal($id_pedido);
+        $data['total'] = $this->productosxpedido->sumTotal($id_pedido);
         
         //Total formateado paral a vista
         $data['total_f'] = array_filter(explode('.', $data['total']));
         
         // Productos del pedido
-        $data['productos'] = $this->pedidos->productos($id_pedido);
+        $data['productos'] = $this->productosxpedido->index($id_pedido);
         
         if ($data['detalle']->estado == 'Cerrado') {
             $this->load->view('detalle_pedido', $data);
@@ -206,7 +207,7 @@ class Main extends CI_Controller
     
     public function eliminar_producto_pedido() {
         if ($this->input->post('id_pedido')) {
-            $this->pedidos->deleteProducto($this->input->post('id_pedido'), $this->input->post('id_producto'));
+            $this->productosxpedido->delete($this->input->post('id_pedido'), $this->input->post('id_producto'));
         } 
         else {
             show_404('page');
@@ -215,7 +216,7 @@ class Main extends CI_Controller
     
     public function eliminar_producto_devuelto() {
         if ($this->input->post('id_pedido')) {
-            $this->pedidos->deleteDevuelto($this->input->post('id_pedido'), $this->input->post('id_producto'));
+            $this->productosxpedido->deleteDevuelto($this->input->post('id_pedido'), $this->input->post('id_producto'));
         } 
         else {
             show_404('page');
@@ -224,7 +225,7 @@ class Main extends CI_Controller
     
     public function devolver_producto_pedido() {
         if ($this->input->post('id_pedido')) {
-            $this->pedidos->devolverProducto($this->input->post('id_pedido'), $this->input->post('id_producto'));
+            $this->productosxpedido->devolver($this->input->post('id_pedido'), $this->input->post('id_producto'));
         } 
         else {
             show_404('page');
