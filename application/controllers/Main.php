@@ -11,31 +11,23 @@ class Main extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-
+        
         $this->load->library('session');
-        $this->load->model('cuentas'); 
-        $this->load->model('descuento'); 
-        $this->load->model('categorias'); 
-        $this->load->model('mesas'); 
-        $this->load->model('pedidos'); 
-        $this->load->model('productos'); 
-        $this->load->model('productosxpedido'); 
+        $this->load->model('descuento_model','descuento');
+        $this->load->model('categorias_model','categorias');
+        $this->load->model('mesas_model','mesas');
+        $this->load->model('pedidos_model','pedidos');
+        $this->load->model('productos_model','productos');
+        $this->load->model('productosxpedido_model','productosxpedido');
         
         //$this->output->enable_profiler(TRUE);
         
         
     }
     
-    public function cuentas() {
-        
 
-        $data['cuentas'] = $this->cuentas->index();
-        $this->load->view('cuentas', $data);
-    }
     
     public function submit_descuento() {
-
-
         
         if ($this->input->post('descuento')) {
             $this->descuento->update($this->input->post('descuento'));
@@ -169,13 +161,15 @@ class Main extends CI_Controller
      */
     public function pedido($id_pedido) {
         
-        // Detalles del pedido
-        if (!$data['detalle'] = $this->pedidos->detalle($id_pedido)) {
+        if (!$id_pedido) {
             
             show_404('page');
             
             break;
         }
+        
+        // Detalles del pedido
+        $data['detalle'] = $this->pedidos->detalle($id_pedido);
         $data['devoluciones'] = $this->productosxpedido->devueltos($id_pedido);
         $this->session->set_flashdata('id_pedido', $id_pedido);
         
