@@ -11,8 +11,14 @@ class Main extends CI_Controller
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model('main_model'); 
+
         $this->load->library('session');
+        $this->load->model('cuentas'); 
+        $this->load->model('descuento'); 
+        $this->load->model('categorias'); 
+        $this->load->model('mesas'); 
+        $this->load->model('pedidos'); 
+        $this->load->model('productos'); 
         
         //$this->output->enable_profiler(TRUE);
         
@@ -21,14 +27,17 @@ class Main extends CI_Controller
     
     public function cuentas() {
         
-        $data['cuentas'] = $this->main_model->getCuentas();
+
+        $data['cuentas'] = $this->cuentas->index();
         $this->load->view('cuentas', $data);
     }
     
     public function submit_descuento() {
+
+
         
         if ($this->input->post('descuento')) {
-            $this->main_model->submit_descuento($this->input->post('descuento'));
+            $this->descuento->update($this->input->post('descuento'));
             redirect('/main/descuento_familiar');
         } 
         else {
@@ -40,21 +49,21 @@ class Main extends CI_Controller
     
     public function descuento_familiar() {
         
-        $data['descuento'] = $this->main_model->getDescuento();
+        $data['descuento'] = $this->descuento->index();
         
         $this->load->view('descuento_familiar', $data);
     }
     
     public function editar_categorias() {
         
-        $data['categorias'] = $this->main_model->getCategorias();
+        $data['categorias'] = $this->categorias->index();
         
         $this->load->view('editar_categorias', $data);
     }
     
     public function submit_categoria() {
         if ($this->input->post()) {
-            $this->main_model->submit_categoria($this->input->post());
+            $this->categorias->add($this->input->post());
         } 
         else {
             show_404('page');
@@ -64,7 +73,7 @@ class Main extends CI_Controller
     public function eliminar_categoria() {
         if ($this->input->post('id_categoria')) {
             
-            $this->main_model->eliminar_categoria($this->input->post('id_categoria'));
+            $this->categorias->delete($this->input->post('id_categoria'));
         } 
         else {
             show_404('page');
@@ -73,7 +82,7 @@ class Main extends CI_Controller
     
     public function editar_mesas() {
         
-        $data['mesas'] = $this->main_model->getMesas();
+        $data['mesas'] = $this->mesas->index();
         
         $this->load->view('editar_mesas', $data);
     }
@@ -81,7 +90,7 @@ class Main extends CI_Controller
     public function submit_mesa() {
         
         if ($this->input->post()) {
-            $this->main_model->submit_mesa($this->input->post());
+            $this->mesas->add($this->input->post());
         } 
         else {
             show_404('page');
@@ -91,7 +100,7 @@ class Main extends CI_Controller
     public function eliminar_mesa() {
         
         if ($this->input->post('id_mesa')) {
-            $this->main_model->eliminar_mesa($this->input->post('id_mesa'));
+            $this->mesas->delete($this->input->post('id_mesa'));
         } 
         else {
             show_404('page');
@@ -104,7 +113,7 @@ class Main extends CI_Controller
      * @return void
      */
     public function index() {
-        $data['mesas_activas'] = $this->main_model->mesas_activas();
+        $data['mesas_activas'] = $this->mesas->activas();
         $this->load->view('main', $data);
     }
     
@@ -114,7 +123,7 @@ class Main extends CI_Controller
      * @return json object
      */
     public function getMesas() {
-        $this->encode($this->main_model->mesas_libres());
+        $this->encode($this->mesas->libres());
     }
     
     /**
@@ -123,7 +132,7 @@ class Main extends CI_Controller
      * @return json object
      */
     public function getCategorias() {
-        $this->encode($this->main_model->categorias());
+        $this->encode($this->categorias->index());
     }
     
     /**
@@ -132,13 +141,13 @@ class Main extends CI_Controller
      * @return json object
      */
     public function getProductosXCategoria() {
-        $id = $this->input->post('id_cat');
-        $this->encode($this->main_model->productos_x_categoria($id));
+        $id_cat = $this->input->post('id_cat');
+        $this->encode($this->productos->index($id_cat));
     }
     
     public function crear_pedido() {
         $productos = json_decode(json_encode($_POST['productos']));
-        $this->main_model->crear_pedido($_POST['id_mesa'], $productos);
+        $this->pedidos->add($_POST['id_mesa'], $productos);
     }
     
     /**
@@ -147,7 +156,7 @@ class Main extends CI_Controller
      * @return void
      */
     public function productos() {
-        $data['productos'] = $this->main_model->listar_productos();
+        $data['productos'] = $this->productos->index();
         $this->load->view('productos', $data);
     }
     
@@ -160,23 +169,23 @@ class Main extends CI_Controller
     public function pedido($id_pedido) {
         
         // Detalles del pedido
-        if (!$data['detalle'] = $this->main_model->detalle_pedido($id_pedido)) {
+        if (!$data['detalle'] = $this->pedidos->detalle($id_pedido)) {
             
             show_404('page');
             
             break;
         }
-        $data['devoluciones'] = $this->main_model->productos_devueltos($id_pedido);
+        $data['devoluciones'] = $this->pedidos->productosDevueltos($id_pedido);
         $this->session->set_flashdata('id_pedido', $id_pedido);
         
         // Total acumulado del pedido
-        $data['total'] = $this->main_model->total_pedido($id_pedido);
+        $data['total'] = $this->pedidos->sumTotal($id_pedido);
         
         //Total formateado paral a vista
         $data['total_f'] = array_filter(explode('.', $data['total']));
         
         // Productos del pedido
-        $data['productos'] = $this->main_model->productos_pedido($id_pedido);
+        $data['productos'] = $this->pedidos->productos($id_pedido);
         
         if ($data['detalle']->estado == 'Cerrado') {
             $this->load->view('detalle_pedido', $data);
@@ -187,7 +196,7 @@ class Main extends CI_Controller
     }
     
     public function agregar_producto() {
-        if ($this->main_model->agregar_producto($this->input->post())) {
+        if ($this->productos->add($this->input->post())) {
             $this->encode(array('st' => 1));
         } 
         else {
@@ -197,7 +206,7 @@ class Main extends CI_Controller
     
     public function eliminar_producto_pedido() {
         if ($this->input->post('id_pedido')) {
-            $this->main_model->eliminar_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+            $this->pedidos->deleteProducto($this->input->post('id_pedido'), $this->input->post('id_producto'));
         } 
         else {
             show_404('page');
@@ -206,7 +215,7 @@ class Main extends CI_Controller
     
     public function eliminar_producto_devuelto() {
         if ($this->input->post('id_pedido')) {
-            $this->main_model->eliminar_producto_devuelto($this->input->post('id_pedido'), $this->input->post('id_producto'));
+            $this->pedidos->deleteDevuelto($this->input->post('id_pedido'), $this->input->post('id_producto'));
         } 
         else {
             show_404('page');
@@ -215,7 +224,7 @@ class Main extends CI_Controller
     
     public function devolver_producto_pedido() {
         if ($this->input->post('id_pedido')) {
-            $this->main_model->devolver_producto_pedido($this->input->post('id_pedido'), $this->input->post('id_producto'));
+            $this->pedidos->devolverProducto($this->input->post('id_pedido'), $this->input->post('id_producto'));
         } 
         else {
             show_404('page');
@@ -229,7 +238,7 @@ class Main extends CI_Controller
             $debito = $this->input->post('debito');
             
             $id_pedido = $this->session->flashdata('id_pedido');
-            $this->main_model->pagar_pedido($id_pedido, $efectivo, $debito);
+            $this->pedidos->pagar($id_pedido, $efectivo, $debito);
             redirect('/main/', 'refresh');
         } 
         else {
