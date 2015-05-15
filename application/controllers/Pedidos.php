@@ -35,6 +35,7 @@ class Pedidos extends CI_Controller
         
         // Total acumulado del pedido
         $data['total'] = $this->productosxpedido->sumTotal($id_pedido);
+        $this->session->set_flashdata('total', $data['total']);
         
         //Total formateado paral a vista
         $data['total_f'] = array_filter(explode('.', $data['total']));
@@ -60,12 +61,19 @@ class Pedidos extends CI_Controller
     public function pagar() {
         
         if ($this->input->post()) {
+            
             $efectivo = $this->input->post('efectivo');
             $debito = $this->input->post('debito');
-            
+            $total = $this->session->flashdata('total');
             $id_pedido = $this->session->flashdata('id_pedido');
-            $this->pedidos->pagar($id_pedido, $efectivo, $debito);
-            redirect('/', 'refresh');
+            
+            if ($total == ($efectivo + $debito)) {
+                $this->pedidos->pagar($id_pedido, $efectivo, $debito);
+                redirect('/', 'refresh');
+            } 
+            else {
+                show_404('page');
+            }
         } 
         else {
             show_404('page');
