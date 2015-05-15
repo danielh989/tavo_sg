@@ -32,7 +32,7 @@ function gestionarProductos() {
         var fila = $(this).closest('tr'),
             id = fila.data('id-producto'),
             cat = fila.find('.categoria').attr('data-idcat');
-        console.log(cat);
+      
         $('input[name=id]').val(id);
         $('input[name=nombre]').val(fila.find('.nombre').text());
         $('input[name=precio]').val(fila.find('.precio').text());

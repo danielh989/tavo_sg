@@ -16,7 +16,7 @@ function gestionarMesas() {
     $('.eliminar_mesa').on('click', function() {
         var mesa = $(this).closest('div'),
             id = mesa.find('p').data('id');
-        console.log(id);
+   
         $.ajax({
             type: 'POST',
             url: 'mesas/delete',
@@ -24,7 +24,7 @@ function gestionarMesas() {
                 id_mesa: id
             },
             success: function(response) {
-                console.log(response);
+            
                 if ($.parseJSON(response).code == 1451) {
                     alert('No se puede eliminar la mesa porque pertenece a un pedido');
                 } else {

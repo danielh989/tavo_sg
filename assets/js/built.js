@@ -163,6 +163,7 @@ function formatoPago() {
     var efectivo = $('#efectivo');
     var debito = $('#debito');
     var total = $('#total_form').data('total');
+
     efectivo.maskMoney({
         thousands: '.',
         decimal: ',',
@@ -180,20 +181,30 @@ function formatoPago() {
         debito.maskMoney('mask');
         efectivo.maskMoney('mask');
     }
+
+
     maskFields();
+
     $("#pay-form #efectivo").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
+
+
         if (valor > total) {
             $(this).val(total);
             valor = total;
         }
         var resto = total - valor;
+
+
         debito.val(resto.toFixed(2));
         maskFields();
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
+
+
     $("#pay-form #debito").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
+
         if (valor > total) {
             $(this).val(total);
             valor = total;
@@ -203,12 +214,16 @@ function formatoPago() {
         maskFields();
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
+
+
+
     $("#pay-form").submit(function(e) {
         var self = this;
         e.preventDefault();
         efectivo.val(efectivo.maskMoney('unmasked')[0]);
         debito.val(debito.maskMoney('unmasked')[0]);
-        pago = parseInt(efectivo.val()) + parseInt(debito.val());
+        pago = parseFloat(efectivo.val()) + parseFloat(debito.val());
+        console.log(pago);
         if (pago < total) {
             maskFields();
             alert("No se ha completado el pago de la orden");
@@ -217,6 +232,8 @@ function formatoPago() {
         }
         return false;
     });
+
+
     $('input[type=radio]').on('click', function() {
         var sel = $(this).attr('value'),
             btn = $('.modal-footer button[type=submit]');
@@ -256,7 +273,7 @@ function gestionarCategorias() {
     $('.eliminar_categoria').on('click', function() {
         var categoria = $(this).closest('div'),
             id = categoria.find('p').data('id');
-        console.log(id);
+       
         $.ajax({
             type: 'POST',
             url: 'categorias/delete',
@@ -264,7 +281,7 @@ function gestionarCategorias() {
                 id_categoria: id
             },
             success: function(response) {
-                console.log(response);
+              
                 if ($.parseJSON(response).code == 1451) {
                     alert('No se puede eliminar la categoria porque pertenece a un pedido');
                 } else {
@@ -313,7 +330,7 @@ function gestionarMesas() {
     $('.eliminar_mesa').on('click', function() {
         var mesa = $(this).closest('div'),
             id = mesa.find('p').data('id');
-        console.log(id);
+   
         $.ajax({
             type: 'POST',
             url: 'mesas/delete',
@@ -321,7 +338,7 @@ function gestionarMesas() {
                 id_mesa: id
             },
             success: function(response) {
-                console.log(response);
+            
                 if ($.parseJSON(response).code == 1451) {
                     alert('No se puede eliminar la mesa porque pertenece a un pedido');
                 } else {
@@ -362,7 +379,7 @@ function gestionarPedidos() {
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
-        console.log(data);
+    
         $.ajax({
             type: type,
             url: url,
@@ -378,7 +395,7 @@ function gestionarPedidos() {
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
-        console.log(data);
+     
         $.ajax({
             type: type,
             url: url,
@@ -438,7 +455,7 @@ function gestionarProductos() {
         var fila = $(this).closest('tr'),
             id = fila.data('id-producto'),
             cat = fila.find('.categoria').attr('data-idcat');
-        console.log(cat);
+      
         $('input[name=id]').val(id);
         $('input[name=nombre]').val(fila.find('.nombre').text());
         $('input[name=precio]').val(fila.find('.precio').text());

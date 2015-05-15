@@ -9,7 +9,7 @@ function gestionarPedidos() {
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
-        console.log(data);
+    
         $.ajax({
             type: type,
             url: url,
@@ -25,7 +25,7 @@ function gestionarPedidos() {
             data = {};
         data['id_pedido'] = $(this).data('pedido');
         data['id_producto'] = $(this).data('producto');
-        console.log(data);
+     
         $.ajax({
             type: type,
             url: url,

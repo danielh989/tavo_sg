@@ -14,7 +14,7 @@ function gestionarCategorias() {
     $('.eliminar_categoria').on('click', function() {
         var categoria = $(this).closest('div'),
             id = categoria.find('p').data('id');
-        console.log(id);
+       
         $.ajax({
             type: 'POST',
             url: 'categorias/delete',
@@ -22,7 +22,7 @@ function gestionarCategorias() {
                 id_categoria: id
             },
             success: function(response) {
-                console.log(response);
+              
                 if ($.parseJSON(response).code == 1451) {
                     alert('No se puede eliminar la categoria porque pertenece a un pedido');
                 } else {
