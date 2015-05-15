@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50543
 File Encoding         : 65001
 
-Date: 2015-05-15 12:05:46
+Date: 2015-05-15 15:35:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,6 +27,18 @@ CREATE TABLE `categorias` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
+-- Records of categorias
+-- ----------------------------
+INSERT INTO `categorias` VALUES ('6', 'Bebidas');
+INSERT INTO `categorias` VALUES ('9', 'Ensaladas');
+INSERT INTO `categorias` VALUES ('8', 'Extras');
+INSERT INTO `categorias` VALUES ('2', 'Hamburguesas');
+INSERT INTO `categorias` VALUES ('13', 'Parrillas');
+INSERT INTO `categorias` VALUES ('23', 'Perro Caliente');
+INSERT INTO `categorias` VALUES ('22', 'Pizzas');
+INSERT INTO `categorias` VALUES ('1', 'Tacos y Patacones');
+
+-- ----------------------------
 -- Table structure for cuentas
 -- ----------------------------
 DROP TABLE IF EXISTS `cuentas`;
@@ -40,7 +52,11 @@ CREATE TABLE `cuentas` (
   PRIMARY KEY (`id`),
   KEY `id_pedido` (`id_pedido`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- ----------------------------
+-- Records of cuentas
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for mesas
@@ -56,6 +72,16 @@ CREATE TABLE `mesas` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
+-- Records of mesas
+-- ----------------------------
+INSERT INTO `mesas` VALUES ('2', '1', 'Redonda 1');
+INSERT INTO `mesas` VALUES ('3', '2', 'Redonda 2');
+INSERT INTO `mesas` VALUES ('9', '3', 'Cuadrada 1');
+INSERT INTO `mesas` VALUES ('10', '4', 'Cuadrada 2');
+INSERT INTO `mesas` VALUES ('11', '5', 'Barra 1');
+INSERT INTO `mesas` VALUES ('12', '6', 'Barra 2');
+
+-- ----------------------------
 -- Table structure for pedidos
 -- ----------------------------
 DROP TABLE IF EXISTS `pedidos`;
@@ -68,7 +94,11 @@ CREATE TABLE `pedidos` (
   PRIMARY KEY (`id`),
   KEY `id_mesa` (`id_mesa`),
   CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- ----------------------------
+-- Records of pedidos
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for productos
@@ -86,6 +116,16 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
+-- Records of productos
+-- ----------------------------
+INSERT INTO `productos` VALUES ('2', '2', 'Baby Grill', 'Hamburguesa Sencilla ', '400.00');
+INSERT INTO `productos` VALUES ('3', '8', 'Jamon/Tocineta', 'Extra para cualquier comida', '90.00');
+INSERT INTO `productos` VALUES ('4', '6', 'Coca Cola', 'Bebida Gaseosa', '55.00');
+INSERT INTO `productos` VALUES ('9', '9', 'La Ensaladona', 'Ensalada con huevo', '300.00');
+INSERT INTO `productos` VALUES ('11', '2', 'La Otra', 'La que te consiente', '600.00');
+INSERT INTO `productos` VALUES ('13', '23', 'HotDog', 'Perro Pequeño', '300.00');
+
+-- ----------------------------
 -- Table structure for productosXpedido
 -- ----------------------------
 DROP TABLE IF EXISTS `productosXpedido`;
@@ -100,7 +140,11 @@ CREATE TABLE `productosXpedido` (
   KEY `id_producto` (`id_producto`),
   CONSTRAINT `productosXpedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
   CONSTRAINT `productosXpedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- ----------------------------
+-- Records of productosXpedido
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for varios
@@ -114,19 +158,24 @@ CREATE TABLE `varios` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- ----------------------------
+-- Records of varios
+-- ----------------------------
+INSERT INTO `varios` VALUES ('1', 'Descuento Familiar', '15');
+
+-- ----------------------------
 -- Procedure structure for cerrar_pedido
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `cerrar_pedido`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cerrar_pedido`(IN `id_pedido_in` int,IN `efectivo` double,IN `debito` double)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cerrar_pedido`(IN `id_pedido_in` int,IN `efectivo` double,IN `debito` double, IN `des_bool` tinyint)
 BEGIN
 	
 DECLARE total_sum, descuento_porc, descuento_calc, total, total_dev  DOUBLE;
 
-set descuento_porc = (select descuento from pedidos where id=id_pedido_in);
+if (des_bool=1) then set descuento_porc = (select valor from varios where id=1);
 
+else set descuento_porc = 0;
 
-if ISNULL(descuento_porc) then set descuento_porc=0;
 
 end if;
 
@@ -143,9 +192,11 @@ set total = total_sum - descuento_calc;
 
 insert into cuentas (id_pedido, total_pagar,efectivo,debito,total_devuelto) VALUES(id_pedido_in, total,efectivo,debito,total_dev);
 
-UPDATE pedidos SET estado='Cerrado' WHERE id=id_pedido_in;
 
-
+-- Hacemos el descuento_porc nulo de nuevo para agregar null en vez de 0
+if (descuento_porc =0) then set descuento_porc =null;
+end if;
+UPDATE pedidos SET estado='Cerrado', descuento=descuento_porc WHERE id=id_pedido_in;
 
 END
 ;;

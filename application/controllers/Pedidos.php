@@ -61,14 +61,24 @@ class Pedidos extends CI_Controller
     public function pagar() {
         
         if ($this->input->post()) {
-            
+
+
+            //Verificamos el checkbox del descuento familiar
+            $des_bool = $this->input->post('descuento');
+
+            if ($des_bool=='on'){
+                $des_bool = 1;
+            }else {
+                $des_bool = 'null';
+            }
+
             $efectivo = $this->input->post('efectivo');
             $debito = $this->input->post('debito');
             $total = $this->session->flashdata('total');
             $id_pedido = $this->session->flashdata('id_pedido');
             
             if ($total == ($efectivo + $debito)) {
-                $this->pedidos->pagar($id_pedido, $efectivo, $debito);
+                $this->pedidos->pagar($id_pedido, $efectivo, $debito,$des_bool);
                 redirect('/', 'refresh');
             } 
             else {

@@ -47,9 +47,9 @@ class Pedidos_model extends CI_Model
         }
     }
     
-    public function pagar($id_pedido, $efectivo, $debito) {
+    public function pagar($id_pedido, $efectivo, $debito, $des_bool) {
         
-        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito)");
+        $this->db->query("CALL cerrar_pedido($id_pedido,$efectivo,$debito,$des_bool)");
     }
     
     public function switchMesa($id_pedido, $id_mesa_nueva) {

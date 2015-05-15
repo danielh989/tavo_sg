@@ -22,13 +22,13 @@ function formatoPago() {
 
     function maskFields() {
         debito.maskMoney('mask');
-        efectivo.maskMoney('mask');
+        efectivo.maskMoney('mask'); 
     }
 
 
     maskFields();
 
-    $("#pay-form #efectivo").keyup(function() {
+    $("#efectivo").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
 
 
@@ -45,7 +45,7 @@ function formatoPago() {
     });
 
 
-    $("#pay-form #debito").keyup(function() {
+    $("#debito").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
 
         if (valor > total) {

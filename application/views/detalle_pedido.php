@@ -90,6 +90,7 @@
                     <div class="row">
 
                     <div class="pull-right">
+                    <form action="/tavo_sg/pedidos/pagar" id="pay-form" method="POST">
                     	<label><input type="checkbox" name="descuento" id="descuento">Descuento Familiar</label>
                     </div>
 
@@ -107,7 +108,7 @@
                     </div>
 
                     <div class="row payment-method">
-                        <form action="/tavo_sg/pedidos/pagar" id="pay-form" method="POST">
+                        
                             <div class="etiquetas">
                                 <label for="efectivo">Efectivo</label>
                                 <label for="debito">Débito/Credito</label>
