@@ -38,7 +38,7 @@
                     <td><?= $row->debito ?></td>
                     <td><?= $row->efectivo ?></td>
                     <td><?= $row->total_devuelto ?></td>
-                    <td><?= $row->descuento ?></td>
+                    <td><?= (empty($row->descuento)) ? '' : $row->descuento.'%' ?></td>
                 </tr>
                 <?php endforeach ?>
             </tbody>
