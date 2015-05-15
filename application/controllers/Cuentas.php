@@ -11,7 +11,9 @@ class Cuentas extends CI_Controller
     }
     
     public function index() {
-        $data['cuentas'] = $this->cuentas->index();
+
+        $data['cuentas'] = $this->cuentas->index($this->input->post('fecha'));
+        $data['totales']=$this->cuentas->totales($this->input->post('fecha'));
         $this->load->view('common/header');
         $this->load->view('cuentas', $data);
     }
