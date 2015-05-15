@@ -96,14 +96,9 @@
     </div>
 </div>
 </div>
-<!-- jQuery -->
-<script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
-<!-- Bootstrap JavaScript -->
-<script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
-<!-- Custom JS -->
+
+<script src="<?=base_url('assets/js/base.min.js')?>"></script>
 <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
-<script src="<?=base_url('assets/js/moment-with-locales.min.js')?>"></script>
-<script src="<?=base_url('assets/js/bootstrap-datetimepicker.min.js')?>"></script>
 <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker9').datetimepicker({
