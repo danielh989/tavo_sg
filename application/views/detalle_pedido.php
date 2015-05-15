@@ -179,12 +179,9 @@
             </a>
             </template>
         </div>
-        <script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
-        <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
-        <script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
+        
+        <script src="<?=base_url('assets/js/base.min.js')?>"></script>
         <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
-        <script src="<?=base_url('assets/js/jquery.maskMoney.min.js')?>"></script>
-        <script>
-        $(document).ready(function(){ formatoPago(); gestionarPedidos();})</script>
+        <script>$(function(){ formatoPago(); gestionarPedidos();})</script>
     </body>
 </html>
