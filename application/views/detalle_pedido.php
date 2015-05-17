@@ -6,7 +6,6 @@
         <h1 class="numero-mesa">Mesa <?=$detalle->numero?></h1>
     </header>
     <hr>
-
     <div class="pedido-opciones">
         <div class="total-pedido">
             <?php if(empty($total)): ?>
@@ -25,7 +24,6 @@
         <div class="btn-pedido btn-ordenar">
             <a href="#" class="table-add" data-toggle="modal" data-target="#mesa"><span class="glyphicon glyphicon-transfer"></span><span class="title">Mesa</span></a>
         </div>
-
     </div>
     <div class="detalle-pedido">
         <h4 class="text-center" style="font-weight:800;text-transform:uppercase">Detalle Orden</h4>
@@ -84,31 +82,27 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-center" id="myModalLabel">Pagar</h4>
-                    
+
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <form action="/tavo_sg/pedidos/pagar" id="pay-form" method="POST">
+                            <div class="pull-right">
 
-                    <div class="pull-right">
-                    <form action="/tavo_sg/pedidos/pagar" id="pay-form" method="POST">
-                    	<label><input type="checkbox" name="descuento" id="descuento">Descuento Familiar</label>
-                    </div>
+                                <label><input type="checkbox" name="descuento" id="descuento">Descuento Familiar</label>
+                            </div>
 
-                    
-
-                        <div class="total-pedido">
-                            <?php if(empty($total)): ?>
-                            <span>Bs.F </span>0
-                            <?php else: ?>
-                            <span>Bs.F </span><?=$total_f[0]?><span>.<?=$total_f[1]?></span>
-                            <?php endif; ?>
-                            <h4 class="text-center">Total Orden</h4>
+                            <div class="total-pedido">
+                                <?php if(empty($total)): ?>
+                                <span>Bs.F </span>0
+                                <?php else: ?>
+                                <span>Bs.F </span><span  id="total_0"><?=$total_f[0]?></span><span id="total_1">.<?=$total_f[1]?></span>
+                                <?php endif; ?>
+                                <h4 class="text-center">Total Orden</h4>
+                            </div>
                         </div>
+                        <div class="row payment-method">
 
-                    </div>
-
-                    <div class="row payment-method">
-                        
                             <div class="etiquetas">
                                 <label for="efectivo">Efectivo</label>
                                 <label for="debito">Débito/Credito</label>
@@ -117,15 +111,12 @@
                                 <input type="text" name="efectivo" id="efectivo" value="0.00" spellcheck="false" maxlength="15">
                                 <input type="text" name="debito" id="debito" value="0.00" spellcheck="false" maxlength="15">
                                 <input hidden id="total_form" data-total="<?=$total?>">
+                                <input hidden id="porc_des" data-descuento="<?=$porc_des?>">
                                 <label><input type="radio" name="pago" value="efectivo"> Solo efectivo</label>
                                 <label><input type="radio" name="pago" value="debito"> Solo debito</label>
                             </div>
                         </div>
-
                         </div><!-- Cierra modal-body -->
-
-
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger-empty" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-success">Pagar</button>
@@ -134,7 +125,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Plantilla para mesas -->
             <template id="select-table">
             <a href="#" class="mesa-libre" data-id="{{id}}">
@@ -143,7 +133,6 @@
             </div>
             </a>
             </template>
-
             <!-- Plantilla de categorias -->
             <template id="categorias-template">
             <a href="#" class="categoria" data-id="{{id}}">
@@ -155,7 +144,6 @@
             <template id="btn-completar">
             <button class="btn btn-success btn-block btn-completar">Completar</button>
             </template>
-
             <template id="back-button">
             <div class="btn-wrapper">
                 <a href="#" class="btn-atras">
@@ -179,12 +167,9 @@
             </a>
             </template>
         </div>
-        <script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
-        <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
-        <script src="<?=base_url('node_modules/mustache/mustache.min.js')?>"></script>
+
+        <script src="<?=base_url('assets/js/base.min.js')?>"></script>
         <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
-        <script src="<?=base_url('assets/js/jquery.maskMoney.min.js')?>"></script>
-        <script>
-        $(document).ready(function(){ formatoPago(); gestionarPedidos();})</script>
+        <script>$(function(){ formatoPago(); gestionarPedidos();})</script>
     </body>
 </html>

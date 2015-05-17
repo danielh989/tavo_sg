@@ -93,13 +93,8 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <!-- jQuery -->
-        <script src="<?=base_url('assets/js/jquery-2.1.4.min.js')?>"></script>
-        <!-- Bootstrap JavaScript -->
-        <script src="<?=base_url('assets/js/bootstrap.min.js')?>"></script>
-        <!-- Custom JS -->
+        <script src="<?=base_url('assets/js/base.min.js')?>"></script>
         <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
-        <script>
-    $(document).ready(function(){ gestionarProductos(); })</script>
+        <script>$(function(){ gestionarProductos(); })</script>
     </body>
 </html>

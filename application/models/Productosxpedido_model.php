@@ -31,6 +31,15 @@ class Productosxpedido_model extends CI_Model
         $query = $this->db->get('productosXpedido');
         return $query->row()->total;
     }
+
+    public function sumTotalCuenta($id) {
+        $this->db->select('total_pagar');
+        $this->db->where('id_pedido', $id);
+  
+        
+        $query = $this->db->get('cuentas');
+        return $query->row()->total_pagar;
+    }
     
     public function add($id_pedido, $id_producto) {
         

@@ -60,4 +60,10 @@ class Pedidos_model extends CI_Model
         $this->db->where('id', $id_pedido);
         $this->db->update('pedidos');
     }
+
+    public function valorDescuento(){
+        $this->db->select('valor');
+        $this->db->where('id',1);
+        return $this->db->get('varios')->row();
+    }
 }

@@ -1,7 +1,8 @@
 /**
  * Generar un nuevo pedido
  */
-function crearOrden() {
+function crear_orden()
+{
     var pedido = {
         "id_mesa": "",
         "productos": []
@@ -10,50 +11,61 @@ function crearOrden() {
     var header = $('.modal-header'),
         body = $('.modal-body'),
         footer = $('.modal-footer');
+
     // Borrar pedido al cerrar el modal
-    $('#myModal').on('hidden.bs.modal', function() {
+    $('#myModal').on('hidden.bs.modal', function()
+    {
         pedido = {
             "id_mesa": "",
             "productos": []
         };
     });
+
     // Funcion para traer las mesas disponibles
-    $('.table-add').on('click', function() {
+    $('.table-add').on('click', function()
+    {
         var that = $(this),
             url = '/tavo_sg/mesas/libres',
             type = 'get',
             data = {};
+
         $.ajax({
             url: url,
             type: type,
             data: data,
-            success: function(mesas) {
+            success: function(mesas)
+            {
                 body.html("");
                 footer.html("");
-                $.get('/tavo_sg/assets/templates/mesas_disponibles.mst', function(template) {
-                    $.each(mesas, function(index, value) {
+                $.get('assets/templates/mesas_disponibles.mst', function(template) {
+                    $.each(mesas, function(index, value){
                         body.append(Mustache.render(template, mesas[index]));
                     });
                 });
             }
         });
     });
+
     // Funcion para traer categorias
-    $(body).on('click', '.mesa-libre', function() {
+    $(body).on('click', '.mesa-libre', function()
+    {
         var that = $(this),
             url = 'categorias/getJSON',
             type = 'post',
             data = {};
+
         // Guardando el ID de la mesa seleccionada
         pedido.id_mesa = that.data('id');
         $.ajax({
             url: url,
             type: type,
             data: data,
-            success: function(response) {
+            success: function(response)
+            {
                 categorias = response; // Llenamos la variable con las categorias
                 body.html(""); // Borramos el modal
                 footer.html(""); // Borramos el footer del modal
+
                 // Renderizando el btn de completar la order
                 $.get('assets/templates/btn-completar.mst', function(template) {
                     footer.append(Mustache.render(template));
@@ -67,23 +79,31 @@ function crearOrden() {
             }
         });
     });
+
     // Traer los productos de una categoria
-    $('.modal-body').on('click', '.categoria', function() {
+    $('.modal-body').on('click', '.categoria', function()
+    {
         var that = $(this),
             url = 'productos/getJSON',
             type = 'post',
             data = {};
-        data['id_cat'] = $(this).data('id'); // Guardamos ID de la categoria seleccionada
+
+        // Guardamos ID de la categoria seleccionada
+        data['id_cat'] = $(this).data('id');
         $.ajax({
             url: url,
             type: type,
             data: data,
-            success: function(productos) {
-                body.html(""); // Borramos el contenido del modal
+            success: function(productos)
+            {
+                // Borramos el contenido del modal
+                body.html("");
+
                 // Colocamos el btn "atras"
                 $.get('assets/templates/back-btn.mst', function(template) {
                     body.append(Mustache.render(template));
                 });
+
                 // Renderizamos los productos
                 $.get('assets/templates/productos.mst', function(template) {
                     $.each(productos, function(index, value) {
@@ -93,35 +113,46 @@ function crearOrden() {
             }
         });
     });
+
     // Agregar producto al pedido
-    body.on('click', '.btn-agregar', function() {
+    body.on('click', '.btn-agregar', function()
+    {
         var that = $(this),
             flag = 0,
             cantidad = that.closest('.number-wrapper').find('.cantidad'),
             valor = parseInt(cantidad.text());
-        cantidad.html(""); // Borramos posibles cantidades anteriores
-        if (pedido.productos == '') {
+
+        // Borramos posibles cantidades anteriores
+        cantidad.html(""); 
+        if (pedido.productos == '')
+        {
             pedido.productos.push({
                 "id": that.data('id'),
                 "cantidad": "1"
             });
             cantidad.append("1");
-        } else {
+        }
+        else
+        {
             // Buscamos el ID en el arreglo de productos,
             // si existe, se le suma uno a la cantidad.
-            $.each(pedido.productos, function(index, value) {
+            $.each(pedido.productos, function(index, value)
+            {
                 // Si el ID del producto existe en el arreglo
                 // sumale uno a la cantidad
-                if (pedido.productos[index].id === that.data('id')) {
+                if (pedido.productos[index].id === that.data('id'))
+                {
                     pedido.productos[index].cantidad = parseInt(pedido.productos[index].cantidad) + 1;
                     pedido.productos[index].id = that.data('id');
                     cantidad.append(valor + 1);
                     flag = 1;
                 }
             });
+
             // Si el ID no existe en el arreglo, agregamos un
             // producto nuevo
-            if (flag == 0) {
+            if (flag == 0)
+            {
                 pedido.productos.push({
                     "id": that.data('id'),
                     "cantidad": "1"
@@ -130,16 +161,21 @@ function crearOrden() {
             }
         }
     });
+
     // Volver al menu de categorias
-    body.on('click', '.btn-atras', function() {
+    body.on('click', '.btn-atras', function()
+    {
         var json = $.merge(categorias, pedido);
-        body.html(""); // Borramos el contenido del modal
+
+        // Borramos el contenido del modal
+        body.html(""); 
         $.get('assets/templates/categorias.mst', function(template) {
             $.each(categorias, function(index, value) {
                 body.append(Mustache.render(template, json[index]));
             });
         });
     });
+
     // Completar y generar la orden
     footer.on('click', '.btn-completar', function() {
         var type = 'post',
@@ -163,6 +199,9 @@ function formatoPago() {
     var efectivo = $('#efectivo');
     var debito = $('#debito');
     var total = $('#total_form').data('total');
+    //Porcentaje del descuento
+    var porc_des = $('#porc_des').data('descuento');
+
 
     efectivo.maskMoney({
         thousands: '.',
@@ -179,51 +218,65 @@ function formatoPago() {
 
     function maskFields() {
         debito.maskMoney('mask');
-        efectivo.maskMoney('mask'); 
+        efectivo.maskMoney('mask');
     }
 
 
+    $('#descuento').change(function() {
+        if (this.checked) {
+            total = parseFloat(total) - (parseFloat(total) * (parseFloat(porc_des) / 100));
+            total = RoundToDecimal(total, 2);
+            total_text = total.toString().split('.');
+            $('#total_0').text(total_text[0]);
+            $('#total_1').text('.' + total_text[1]);
+            debito.val('0.00');
+            efectivo.val('0.00');
+            maskFields();
+            $('#pay-form input[type="radio"]').prop('checked', false);
+        } else {
+            total = $('#total_form').data('total');
+            total = RoundToDecimal(total, 2);
+            total_text = total.toString().split('.');
+            $('#total_0').text(total_text[0]);
+            $('#total_1').text('.' + total_text[1]);
+            debito.val('0.00');
+            efectivo.val('0.00');
+            maskFields();
+            $('#pay-form input[type="radio"]').prop('checked', false);
+        }
+    });
     maskFields();
-
     $("#efectivo").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
-
-
+        valor = RoundToDecimal(valor, 2);
         if (valor > total) {
             $(this).val(total);
             valor = total;
         }
         var resto = total - valor;
-
-
-        debito.val(resto.toFixed(2));
+        debito.val(RoundToDecimal(resto, 2));
         maskFields();
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
-
-
     $("#debito").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
-
+        valor = RoundToDecimal(valor, 2);
         if (valor > total) {
             $(this).val(total);
             valor = total;
         }
         var resto = total - valor;
-        efectivo.val(resto.toFixed(2));
+        efectivo.val(RoundToDecimal(resto, 2));
         maskFields();
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
-
-
-
     $("#pay-form").submit(function(e) {
         var self = this;
         e.preventDefault();
         efectivo.val(efectivo.maskMoney('unmasked')[0]);
         debito.val(debito.maskMoney('unmasked')[0]);
         pago = parseFloat(efectivo.val()) + parseFloat(debito.val());
-        console.log(pago);
+        pago = RoundToDecimal(pago, 2);
         if (pago < total) {
             maskFields();
             alert("No se ha completado el pago de la orden");
@@ -232,14 +285,12 @@ function formatoPago() {
         }
         return false;
     });
-
-
     $('input[type=radio]').on('click', function() {
         var sel = $(this).attr('value'),
             btn = $('.modal-footer button[type=submit]');
         switch (sel) {
             case 'efectivo':
-                efectivo.val(total);
+                efectivo.val(RoundToDecimal(total, 2));
                 debito.val('0.00');
                 efectivo.trigger("focus");
                 debito.trigger("focus");
@@ -247,7 +298,7 @@ function formatoPago() {
                 maskFields();
                 break;
             case 'debito':
-                debito.val(total);
+                debito.val(RoundToDecimal(total, 2));
                 efectivo.val('0.00');
                 debito.trigger("focus");
                 efectivo.trigger("focus");
@@ -256,6 +307,18 @@ function formatoPago() {
                 break;
         }
     });
+}
+//Esta funcion es para que JavaScript redondee igual que php y los numeros coincidan
+//Por defecto JavaScript redondea hacia abajo y PHP hacia arriba cuando existe un .5
+function RoundToDecimal(number, decimal) {
+    var zeros = new String(1.0.toFixed(decimal));
+    zeros = zeros.substr(2);
+    var mul_div = parseInt("1" + zeros);
+    var increment = parseFloat("." + zeros + "01");
+    if (((number * (mul_div * 10)) % 10) >= 5) {
+        number += increment;
+    }
+    return (Math.round(number * mul_div) / mul_div).toFixed(decimal);
 }
 /*
  * Gestionar los productos a nivel de Administrador
