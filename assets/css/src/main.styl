@@ -16,6 +16,29 @@ body
 	a
 		text-transform: uppercase
 
+.navbar-nav
+	
+	.dropdown
+		float: right
+		height: 50px
+		
+		.btn-custom-dropdown
+			background: transparent
+			font-size: 16px
+			font-weight: 400
+			text-transform: uppercase
+			padding: 15px
+			border: none !important
+			line-height: 20px
+			outline: none
+		
+		.dropdown-menu
+			border-radius: 0px
+			
+			li a
+				color: #828282 
+				padding: 10px 13px
+
 .navbar-inverse 
 .navbar-nav>li>a
 	color: #828282 !important
@@ -153,6 +176,58 @@ body
 			color: #00B16A
 			font-size: 24px
 			padding: 2px 5px
+			animation: all 0.25s ease-in
+
+@keyframes pulse
+	0%
+		-webkit-transfrom: scale(0)
+	80%
+		-webkit-transfrom: scale(1.4)
+	100%
+		-webkit-transfrom: scale(1)
+
+table
+	margin-top: 20px
+	border: 1px solid #CCC
+	
+	.acciones
+		border-right: 1px solid #ccc
+
+	.new-entry
+		td 
+			background: #F4F4F4 !important
+		td
+		a
+			cursor: pointer
+			text-decoration: none
+		.glyphicon-plus-sign
+			color: green
+		.export
+			margin-right: 10px
+			
+	.table-info
+		font-weight: 600
+		background: -webkit-linear-gradient(#F2F1EF, #DADFE1)
+		
+	.edit-col
+		a
+			cursor: pointer
+		span
+			margin-right: 8px
+			font-size: 18px
+		.glyphicon-search
+			color: #6BB9F0
+		.glyphicon-pencil
+			color: #2C3E50
+		.glyphicon-remove-sign
+			color: red
+			
+	span.pagina
+		margin-top: 10px
+		background: white
+		border-radius: 15%
+		border: 1px solid rgba(0,0,0,0.35)
+		padding: 2px
 
 .pedido-container
 	position: relative

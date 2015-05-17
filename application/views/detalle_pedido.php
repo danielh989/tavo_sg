@@ -167,7 +167,11 @@
             </a>
             </template>
         </div>
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> eb44d186ab8ba6945a49418272bae2c503f99b14
         <script src="<?=base_url('assets/js/base.min.js')?>"></script>
         <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
         <script>$(function(){ formatoPago(); gestionarPedidos();})</script>

@@ -1,38 +1,44 @@
 
-        <div class="container">
-            <div class="col-md-8 col-md-offset-2">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-agregar" data-toggle="modal" data-target="#myModal">
-                Agregar
-                </button>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Categoría</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($productos as $row): ?>
-                        <tr data-id-producto="<?= $row->id ?>">
-                            <td class="nombre"><?= $row->nombre ?></td>
-                            <td class="categoria" data-idcat="<?=$row->id_cat?>"><?= $row->categoria ?></td>
-                            <td class="descripcion"><?= $row->descripcion ?></td>
-                            <td class="precio"><?= $row->precio ?></td>
-                            <td>
-                                <span><button class="btn btn-default btn-editar" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-edit" type="submit"></span></button></span>
-                                <span><button class="btn btn-default btn-eliminar" data-toggle="modal" data-target="#eliminarProducto"><span class="glyphicon glyphicon-remove" type="submit"></span></button></span>
-                            </td>
-                        </tr>
-                        <?php endforeach ?>
+        <div class="container-fluid">
+          <div class="col-md-12">
+            <!-- Button trigger modal -->
+            <table class="table table-striped">
 
+              <tr class="new-entry">
+                <td><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus-sign"></span> Agregar Producto</a></td>
+                <td colspan="6" class="text-right">
+                  <a href="#" class="export"><span class="glyphicon glyphicon-file"></span> Exportar</a>
+                  <a href="#"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
+                </td>
+              </tr>
 
-                    </tbody>
-                </table>
-            </div>
+              <tr class="table-info">
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th class="text-right acciones">Acciones</th>
+              </tr>
+
+              <?php foreach ($productos as $row): ?>
+                <tr data-id-producto="<?= $row->id ?>">
+                  <td class="nombre"><?= $row->nombre ?></td>
+                  <td class="categoria" data-idcat="<?=$row->id_cat?>"><?= $row->categoria ?></td>
+                  <td class="descripcion"><?= $row->descripcion ?></td>
+                  <td class="precio"><?= $row->precio ?></td>
+                  <td class="text-right edit-col acciones">
+                    <a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil" type="submit"></span></a>
+                    <a data-toggle="modal" data-target="#eliminarProducto"><span class="glyphicon glyphicon-remove-sign" type="submit"></span></a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+
+              <tr class="table-info">
+              	<td colspan="5">Total entradas: </td>
+              </tr>
+
+            </table>
+          </div>
         </div>
 
         <!-- Modal Editar -->
