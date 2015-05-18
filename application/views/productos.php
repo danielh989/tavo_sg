@@ -27,7 +27,7 @@
                   <td class="descripcion"><?= $row->descripcion ?></td>
                   <td class="precio"><?= $row->precio ?></td>
                   <td class="text-right edit-col acciones">
-                    <a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil" type="submit"></span></a>
+                    <a class="btn-editar" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil" type="submit"></span></a>
                     <a data-toggle="modal" data-target="#eliminarProducto"><span class="glyphicon glyphicon-remove-sign" type="submit"></span></a>
                   </td>
                 </tr>

@@ -488,12 +488,14 @@ function gestionarPedidos() {
  * Gestionar los productos a nivel de Administrador
  */
 function gestionarProductos() {
+
     // Abrir el modal para agregar producto
     $('.btn-agregar').on('click', function() {
         getCategorias('#id_cat', 0); // Dejar el select en opcion 0
         $('input').val(""); // Borrar contenido los inputs
         $('textarea').val(""); // Borrar contenido del textarea
     });
+
     // Enviar datos para almacenarlos en la DB (Agregar Pedido)
     $('.btn-guardar').on('click', function() {
         var form = $('form#producto'),
@@ -513,6 +515,7 @@ function gestionarProductos() {
             }
         });
     });
+    
     // Editar un producto
     $('.table tbody .btn-editar').on('click', function() {
         var fila = $(this).closest('tr'),
