@@ -515,7 +515,7 @@ function gestionarProductos() {
             }
         });
     });
-    
+
     // Editar un producto
     $('.table tbody .btn-editar').on('click', function() {
         var fila = $(this).closest('tr'),

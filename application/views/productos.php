@@ -5,7 +5,7 @@
             <table class="table table-striped">
 
               <tr class="new-entry">
-                <td><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus-sign"></span> Agregar Producto</a></td>
+                <td><a class="btn-agregar" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus-sign"></span> Agregar Producto</a></td>
                 <td colspan="6" class="text-right">
                   <a href="#" class="export"><span class="glyphicon glyphicon-file"></span> Exportar</a>
                   <a href="#"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
