@@ -6,10 +6,10 @@
                 <?php foreach ($mesas as $row):?>
                 <a href="#" class="table-unit agregar-mesa" data-toggle="modal" data-target="#myModal">
                 <div class="number-wrapper">
-                    <button type="button" class="close eliminar_mesa" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="eliminar-mesa" aria-label="Eliminar" title="Eliminar"><span aria-hidden="true">&times;</span></button>
                     <p hidden data-id="<?=$row->id?>"></p>
                     <h2 class="number" data-numero="<?=$row->numero?>"><?=$row->numero?></h2>
-                    <h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
+                    <h4 class="name" data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
                 </div>
                 </a>
                 <?php endforeach;?>
@@ -20,6 +20,9 @@
                     <h2 class="number">+</h2>
                 </div>
                 </a>
+
+            </div>
+
                 <!-- Modal -->
                 <div class="modal order-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -42,7 +45,7 @@
                                     <span class="error"></span>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" value="Guardar">
+                                    <input type="submit" class="btn btn-success btn-block" value="Guardar">
                                 </div>
                             </form>
                         </div>

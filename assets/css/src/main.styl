@@ -62,6 +62,7 @@ body
 	clearfix()
 	
 	.table-unit
+		position: relative
 		float: left
 		cursor: pointer
 		margin: 1%
@@ -69,22 +70,51 @@ body
 		height: 250px
 		background: #DDD
 		text-align: center
-		-webkit-transition: border-bottom 0.25s
-		.number-wrapper
-			position: relative
+		outline: none
+			
 		.number
 			position: absolute
 			top: 50%
 			left: 50%
+			margin-top: -99px
 			margin-left: -50.5px
 			font-size: 180px
 			color: #ABB7B7
+			
+		.name
+			position: absolute
+			top: 0
+			right: 0
+			left: 0
+			color: #828282
+		
+		.eliminar-mesa
+			position: absolute
+			right: 10px
+			top: 3px
+			padding: 0
+			border: 0px solid red
+			background: transparent
+			span
+				font-size: 21px
+				color: red
+			
 		&:hover
 			background: #CF000F
+			
 			.number
 				color: #F2F2F2
 				text-decoration: none
 				border-bottom: 5px solid #F2F2F2
+	
+	.table-unit.agregar-mesa
+		
+		&:hover
+			background: #CCC
+			
+			.number
+				color: #ABB7B7
+				border-bottom: 5px solid #ABB7B7
 	
 	.table-add
 		-webkit-box-shadow: inset 0 0 25px rgba(0,0,0,0.15)
@@ -177,6 +207,64 @@ body
 			font-size: 24px
 			padding: 2px 5px
 			animation: all 0.25s ease-in
+
+.categorias-container
+	padding: 20px
+	clearfix()
+	
+	.pill
+		position: relative
+		float: left
+		border-radius: 50px
+		min-width: 18%
+		padding: 20px
+		margin: 5px
+		background: white
+		box-shadow(0,1px,2px,rgba(0,0,0,0.35))
+		
+		@media screen and (max-width: 1300px)
+			width: 23%
+		@media screen and (max-width: 1000px)
+			width: 48%
+		
+		button
+			position: absolute
+			right: 0
+			top: 0
+			bottom: 0
+			width: 50px
+			border-bottom-right-radius: 50px
+			border-top-right-radius: 50px
+			outline: none
+		
+		h4
+			position: absolute
+			left: 20
+			top: 50%
+			margin-top: -9.5px
+
+.header
+	position: relative
+	
+	h2
+		display: inline-block
+	
+	.add-categoria
+		position: absolute
+		right: 20px
+		top: 40px
+		text-decoration: none
+		color: white
+		cursor: pointer
+		font-size: 18px
+		padding: 8px 20px
+		background: rgba(green, 0.64)
+		box-shadow(0,1px,2px,rgba(0,0,0,0.35))
+		border-radius: 50px
+		font-weight: 300
+		
+		&:hover
+			background: rgba(green, 0.95)
 
 @keyframes pulse
 	0%

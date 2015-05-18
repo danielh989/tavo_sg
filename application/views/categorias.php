@@ -1,24 +1,20 @@
 
-
-            <div class="table-container">
+            <div class="categorias-container">
+                <div class="header text-center">
+                    <h2 class="page-header">Categorias</h2>
+                    <a class="add-categoria" data-toggle="modal" data-target="#myModal">Nueva categoria</a>
+                </div>
 
                 <!-- Mesas abiertas -->
                 <?php foreach ($categorias as $row):?>
-                <a href="#" class="table-unit agregar-categoria" data-toggle="modal" data-target="#myModal">
-                <div class="number-wrapper">
-                    <button type="button" class="close eliminar_categoria" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="pill agregar-categoria" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-danger eliminar_categoria" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <p hidden data-id="<?=$row->id?>"></p>
                     <h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
                 </div>
-                </a>
                 <?php endforeach;?>
 
-                <!-- Agregar mesa -->
-                <a href="#" class="table-unit agregar-categoria" data-toggle="modal" data-target="#myModal">
-                <div class="number-wrapper">
-                    <h2 class="number">+</h2>
-                </div>
-                </a>
+            </div>
                 <!-- Modal -->
                 <div class="modal order-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -29,17 +25,21 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <form id="form-categoria" action="categorias/add" method="post">
-                                        <p><label for="nombre">Nombre</label></p>
-                                        <input type="text" name="nombre" class="form-control">
-                                        <input type="hidden" name="id">
+                                    <form id="form-categoria" action="categorias/add" method="post" class="form-horizontal">
 
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-md-offset-2">
+                                                <label for="nombre">Nombre</label>
+                                                <input type="text" name="nombre" class="form-control">
+                                                <input type="hidden" name="id">
+                                            </div>
+                                        </div>
 
                                     </div>
                                     <span class="error"></span>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="submit" value="Guardar">
+                                    <input type="submit" class="btn btn-success btn-block" value="Guardar">
                                 </div>
                             </form>
                         </div>
