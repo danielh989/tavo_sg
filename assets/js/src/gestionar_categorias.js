@@ -2,37 +2,43 @@
  * Gestionar los productos a nivel de Administrador
  */
 function gestionarCategorias() {
+
     // Editar una mesa
     $('.agregar-categoria').on('click', function() {
-        var categoria = $(this).find('div'),
-            id = categoria.find('p').data('id');
+        var categoria = $(this),
+            id = categoria.data('id');
         nombre = categoria.find('h4').data('nombre');
         $('input[name=id]').val(id);
         $('input[name=nombre]').val(nombre);
         $('span.error').empty();
     });
+
     $('.eliminar_categoria').on('click', function() {
-        var categoria = $(this).closest('div'),
-            id = categoria.find('p').data('id');
+        var categoria = $(this).closest('.agregar-categoria'),
+            id = categoria.data('id'),
+            data = {};
+
+            data['id_categoria'] = id;
+            console.log(id);
        
         $.ajax({
             type: 'POST',
             url: 'categorias/delete',
-            data: {
-                id_categoria: id
-            },
+            data: data,
             success: function(response) {
-              
-                if ($.parseJSON(response).code == 1451) {
+                if ($.parseJSON(response).code == 1451)
+                {
                     alert('No se puede eliminar la categoria porque pertenece a un pedido');
-                } else {
-
-                    categoria.closest('a').remove();
-                    //location.reload();
+                } 
+                else
+                {
+                    categoria.remove();
+                    location.reload();
                 }
             }
         });
     });
+
     $("#form-categoria").submit(function(e) {
         e.preventDefault();
         var form = $('#form-categoria'),

@@ -7,9 +7,8 @@
 
                 <!-- Mesas abiertas -->
                 <?php foreach ($categorias as $row):?>
-                <div class="pill agregar-categoria" data-toggle="modal" data-target="#myModal">
+                <div class="pill agregar-categoria" data-id="<?php echo $row->id ?>" data-toggle="modal" data-target="#myModal">
                     <button type="button" class="btn btn-danger eliminar_categoria" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p hidden data-id="<?=$row->id?>"></p>
                     <h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
                 </div>
                 <?php endforeach;?>
