@@ -170,6 +170,6 @@
         
         <script src="<?=base_url('assets/js/base.min.js')?>"></script>
         <script src="<?=base_url('assets/js/tavo.min.js')?>"></script>
-        <script>$(function(){ formatoPago(); gestionarPedidos();})</script>
+        <script>$(function(){ formatoPago(); gestionarPedidos(); crear_orden();})</script>
     </body>
 </html>

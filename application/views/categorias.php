@@ -7,10 +7,10 @@
 
                 <!-- Mesas abiertas -->
                 <?php foreach ($categorias as $row):?>
-                <div class="pill agregar-categoria" data-id="<?php echo $row->id ?>" data-toggle="modal" data-target="#myModal">
-                    <button type="button" class="btn btn-danger eliminar_categoria" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
-                </div>
+                    <div class="pill agregar-categoria" data-id="<?php echo $row->id ?>" data-toggle="modal" data-target="#myModal">
+                        <h4 data-nombre="<?=$row->nombre?>"><?=$row->nombre?></h4>
+                        <button type="button" class="btn btn-danger eliminar_categoria" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
                 <?php endforeach;?>
 
             </div>

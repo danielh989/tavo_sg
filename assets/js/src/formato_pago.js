@@ -56,23 +56,29 @@ function formatoPago() {
     $("#efectivo").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
         valor = RoundToDecimal(valor, 2);
-        if (valor > total) {
+        if (parseFloat(valor) > parseFloat(total)) {
             $(this).val(total);
             valor = total;
         }
         var resto = total - valor;
         debito.val(RoundToDecimal(resto, 2));
+      
+
         maskFields();
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
     $("#debito").keyup(function() {
         valor = $(this).maskMoney('unmasked')[0];
         valor = RoundToDecimal(valor, 2);
-        if (valor > total) {
+
+        
+        if (parseFloat(valor) > parseFloat(total)) {
+            
             $(this).val(total);
             valor = total;
         }
-        var resto = total - valor;
+
+        var resto = parseFloat(total) - parseFloat(valor);
         efectivo.val(RoundToDecimal(resto, 2));
         maskFields();
         $('#pay-form input[type="radio"]').prop('checked', false);
@@ -84,7 +90,7 @@ function formatoPago() {
         debito.val(debito.maskMoney('unmasked')[0]);
         pago = parseFloat(efectivo.val()) + parseFloat(debito.val());
         pago = RoundToDecimal(pago, 2);
-        if (pago < total) {
+        if (parseFloat(pago) < parseFloat(total)) {
             maskFields();
             alert("No se ha completado el pago de la orden");
         } else {
@@ -117,10 +123,13 @@ function formatoPago() {
 }
 //Esta funcion es para que JavaScript redondee igual que php y los numeros coincidan
 //Por defecto JavaScript redondea hacia abajo y PHP hacia arriba cuando existe un .5
+
+//OJO: Devuelve un String
+
 function RoundToDecimal(number, decimal) {
     var zeros = new String(1.0.toFixed(decimal));
     zeros = zeros.substr(2);
-    var mul_div = parseInt("1" + zeros);
+    var mul_div = parseFloat("1" + zeros);
     var increment = parseFloat("." + zeros + "01");
     if (((number * (mul_div * 10)) % 10) >= 5) {
         number += increment;

@@ -22,7 +22,7 @@ function crear_orden()
     });
 
     // Funcion para traer las mesas disponibles
-    $('.table-add').on('click', function()
+    $('.table-add, .pedido-opciones .table-add').on('click', function()
     {
         var that = $(this),
             url = '/tavo_sg/mesas/libres',
@@ -37,7 +37,8 @@ function crear_orden()
             {
                 body.html("");
                 footer.html("");
-                $.get('assets/templates/mesas_disponibles.mst', function(template) {
+                $.get('/tavo_sg/assets/templates/mesas_disponibles.mst', function(template) {
+                    console.log(template);
                     $.each(mesas, function(index, value){
                         body.append(Mustache.render(template, mesas[index]));
                     });
