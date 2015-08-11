@@ -41,10 +41,13 @@ class Productosxpedido_model extends CI_Model
         return $query->row()->total_pagar;
     }
     
-    public function add($id_pedido, $id_producto) {
-        
+    public function add($productos, $id_pedido) {
         //Agrega un producto a un pedido
-        $this->db->query("CALL insertar_producto_pedido($id_pedido, $id_producto)");
+        foreach ($productos as $producto) {
+            for ($i = 0; $i < $producto['cantidad']; $i++) {
+                $this->db->query("CALL insertar_producto_pedido(".$id_pedido.",". $producto['id'].")");
+            }
+        }
     }
     
     public function delete($id_pedido, $id_producto) {

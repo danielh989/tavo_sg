@@ -51,10 +51,9 @@ class Mesas_model extends CI_Model
         return $query->result();
     }
     
-    public function libres() {
-        
+    public function libres()
+    {
         //Mostrar las mesas que no tienen un pedido activo
-        
         $this->db->where('mesas.id not in (select id_mesa from pedidos where estado="Activo")');
         $query = $this->db->get('mesas');
         return $query->result();

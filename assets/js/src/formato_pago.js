@@ -3,33 +3,19 @@
  *
  */
 function formatoPago() {
-    var efectivo = $('#efectivo');
-    var debito = $('#debito');
-    var total = $('#total_form').data('total');
-    //Porcentaje del descuento
-    var porc_des = $('#porc_des').data('descuento');
+    var total = null;
 
-
-    efectivo.maskMoney({
-        thousands: '.',
-        decimal: ',',
-        allowZero: false,
-        suffix: ' Bs.F'
-    });
-    debito.maskMoney({
-        thousands: '.',
-        decimal: ',',
-        allowZero: false,
-        suffix: ' Bs.F'
-    });
-
-    function maskFields() {
+    function maskFields(debito, efectivo) {
         debito.maskMoney('mask');
         efectivo.maskMoney('mask');
     }
 
+    $(document).on('change', '#descuento', function() {
+            total = $('#total_form').data('total');
+            efectivo = $('#efectivo');
+            debito = $('#debito');
+            porc_des = $('#porc_des').data('descuento');
 
-    $('#descuento').change(function() {
         if (this.checked) {
             total = parseFloat(total) - (parseFloat(total) * (parseFloat(porc_des) / 100));
             total = RoundToDecimal(total, 2);
@@ -38,8 +24,8 @@ function formatoPago() {
             $('#total_1').text('.' + total_text[1]);
             debito.val('0.00');
             efectivo.val('0.00');
-            maskFields();
-            $('#pay-form input[type="radio"]').prop('checked', false);
+            maskFields(debito, efectivo);
+            $('input[type="radio"]').prop('checked', false);
         } else {
             total = $('#total_form').data('total');
             total = RoundToDecimal(total, 2);
@@ -48,12 +34,25 @@ function formatoPago() {
             $('#total_1').text('.' + total_text[1]);
             debito.val('0.00');
             efectivo.val('0.00');
-            maskFields();
-            $('#pay-form input[type="radio"]').prop('checked', false);
+            maskFields(debito, efectivo);
+            $('input[type="radio"]').prop('checked', false);
         }
     });
-    maskFields();
-    $("#efectivo").keyup(function() {
+
+    $(document).on('keyup', "#efectivo", function() {
+        var efectivo = $('#efectivo'),
+            debito = $('#debito');
+            total = (total == null) ? total = $('#total_form').data('total') : total = total;
+
+        efectivo.maskMoney({
+            thousands: '.',
+            decimal: ',',
+            allowZero: false,
+            suffix: ' Bs.F'
+        });
+
+        efectivo.maskMoney('mask');
+
         valor = $(this).maskMoney('unmasked')[0];
         valor = RoundToDecimal(valor, 2);
         if (parseFloat(valor) > parseFloat(total)) {
@@ -64,43 +63,62 @@ function formatoPago() {
         debito.val(RoundToDecimal(resto, 2));
       
 
-        maskFields();
+        maskFields(debito, efectivo);
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
-    $("#debito").keyup(function() {
+
+    $(document).on('keyup', '#debito', function() {
+        var efectivo = $('#efectivo'),
+            debito = $('#debito'),
+            total = $('#total_form').data('total');
+
+        debito.maskMoney({
+            thousands: '.',
+            decimal: ',',
+            allowZero: false,
+            suffix: ' Bs.F'
+        });
+
+        debito.maskMoney('mask');
+
         valor = $(this).maskMoney('unmasked')[0];
         valor = RoundToDecimal(valor, 2);
-
-        
         if (parseFloat(valor) > parseFloat(total)) {
-            
             $(this).val(total);
             valor = total;
         }
-
         var resto = parseFloat(total) - parseFloat(valor);
         efectivo.val(RoundToDecimal(resto, 2));
-        maskFields();
+
+        maskFields(debito, efectivo);
         $('#pay-form input[type="radio"]').prop('checked', false);
     });
-    $("#pay-form").submit(function(e) {
-        var self = this;
-        e.preventDefault();
-        efectivo.val(efectivo.maskMoney('unmasked')[0]);
-        debito.val(debito.maskMoney('unmasked')[0]);
-        pago = parseFloat(efectivo.val()) + parseFloat(debito.val());
+
+    $(document).on('submit', "#pay-form", function(event) {
+        var self = $(this),
+            efectivo = $('#efectivo'),
+            debito = $('#debito');
+            total = (total == null) ? total = $('#total_form').data('total') : total = total;
+
+        pago = parseFloat(efectivo.maskMoney('unmasked')[0])
+             + parseFloat(debito.maskMoney('unmasked')[0]);
         pago = RoundToDecimal(pago, 2);
         if (parseFloat(pago) < parseFloat(total)) {
-            maskFields();
+            maskFields(debito, efectivo);
             alert("No se ha completado el pago de la orden");
         } else {
             self.submit();
         }
         return false;
     });
-    $('input[type=radio]').on('click', function() {
+
+    $(document).on('click', 'input[type=radio]',function() {
         var sel = $(this).attr('value'),
-            btn = $('.modal-footer button[type=submit]');
+            btn = $('.modal-footer button[type=submit]'),
+            efectivo = $('#efectivo'),
+            debito = $('#debito');
+            total = (total == null) ? total = $('#total_form').data('total') : total = total;
+
         switch (sel) {
             case 'efectivo':
                 efectivo.val(RoundToDecimal(total, 2));
@@ -108,7 +126,7 @@ function formatoPago() {
                 efectivo.trigger("focus");
                 debito.trigger("focus");
                 btn.trigger("focus");
-                maskFields();
+                maskFields(debito, efectivo);
                 break;
             case 'debito':
                 debito.val(RoundToDecimal(total, 2));
@@ -116,7 +134,7 @@ function formatoPago() {
                 debito.trigger("focus");
                 efectivo.trigger("focus");
                 btn.trigger("focus");
-                maskFields();
+                maskFields(debito, efectivo);
                 break;
         }
     });

@@ -1,0 +1,8 @@
+<div class="resumen-pedido">
+	<table class="table table-responsive table-bordered table-striped">
+		<tr class="table-header">
+			<td>Producto</td>
+			<td>Cantidad</td>
+		</tr>
+	</table>
+</div>

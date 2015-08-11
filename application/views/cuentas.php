@@ -45,56 +45,58 @@
         </table>
     </div>
 </div>
-<div class="col-md-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">A pagar</h3>
-        </div>
-        <div class="panel-body">
-            <?= $totales->total_pagar  ?>
-        </div>
-    </div>
-</div>
-<div class="col-md-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Efectivo</h3>
-        </div>
-        <div class="panel-body">
-            <?= $totales->efectivo  ?>
+
+    <div class="col-md-offset-1 col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">A pagar</h3>
+            </div>
+            <div class="panel-body">
+                <?= $totales->total_pagar  ?>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-md-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Debito</h3>
-        </div>
-        <div class="panel-body">
-            <?= $totales->debito  ?>
-        </div>
-    </div>
-</div>
-<div class="col-md-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Efectivo+Debito</h3>
-        </div>
-        <div class="panel-body">
-            <?= $totales->total_pagar  ?>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Efectivo</h3>
+            </div>
+            <div class="panel-body">
+                <?= $totales->efectivo  ?>
+            </div>
         </div>
     </div>
-</div>
-<div class="col-md-2">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Perdida</h3>
-        </div>
-        <div class="panel-body">
-            <?= $totales->perdida  ?>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Debito</h3>
+            </div>
+            <div class="panel-body">
+                <?= $totales->debito  ?>
+            </div>
         </div>
     </div>
-</div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Efectivo+Debito</h3>
+            </div>
+            <div class="panel-body">
+                <?= $totales->total_pagar  ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Perdida</h3>
+            </div>
+            <div class="panel-body">
+                <?= $totales->perdida  ?>
+            </div>
+        </div>
+    </div>
+    
 </div>
 
 <script src="<?=base_url('assets/js/base.min.js')?>"></script>

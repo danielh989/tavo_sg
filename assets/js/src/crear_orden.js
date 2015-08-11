@@ -22,7 +22,7 @@ function crear_orden()
     });
 
     // Funcion para traer las mesas disponibles
-    $('.table-add, .pedido-opciones .table-add').on('click', function()
+    $('.table-add').on('click', function()
     {
         var that = $(this),
             url = '/tavo_sg/mesas/libres',
@@ -38,7 +38,6 @@ function crear_orden()
                 body.html("");
                 footer.html("");
                 $.get('/tavo_sg/assets/templates/mesas_disponibles.mst', function(template) {
-                    console.log(template);
                     $.each(mesas, function(index, value){
                         body.append(Mustache.render(template, mesas[index]));
                     });
@@ -96,21 +95,37 @@ function crear_orden()
             type: type,
             data: data,
             success: function(productos)
-            {
+            {   
                 // Borramos el contenido del modal
                 body.html("");
-
-                // Colocamos el btn "atras"
-                $.get('assets/templates/back-btn.mst', function(template) {
-                    body.append(Mustache.render(template));
+                footer.html("");
+                // Renderizando el btn de completar la order
+                $.get('assets/templates/btn-completar.mst', function(template) {
+                    footer.append(Mustache.render(template));
                 });
 
-                // Renderizamos los productos
-                $.get('assets/templates/productos.mst', function(template) {
-                    $.each(productos, function(index, value) {
-                        body.append(Mustache.render(template, productos[index]));
+                if (productos.length > 0) 
+                {
+                    // Colocamos el btn "atras"
+                    $.get('assets/templates/back-btn.mst', function(template) {
+                        body.append(Mustache.render(template));
                     });
-                });
+
+                    // Renderizamos los productos
+                    $.get('assets/templates/productos.mst', function(template) {
+                        $.each(productos, function(index, value) {
+                            body.append(Mustache.render(template, productos[index]));
+                        });
+                    });
+                }
+                else
+                {   
+                    // Colocamos el btn "atras"
+                    $.get('assets/templates/back-btn.mst', function(template) {
+                        body.append(Mustache.render(template));
+                        body.append('<h3 class="text-center text-muted">No hay productos</h3>');
+                    });
+                }
             }
         });
     });
@@ -129,7 +144,8 @@ function crear_orden()
         {
             pedido.productos.push({
                 "id": that.data('id'),
-                "cantidad": "1"
+                "cantidad": "1",
+                "nombre": that.data('nombre'),
             });
             cantidad.append("1");
         }
@@ -145,6 +161,7 @@ function crear_orden()
                 {
                     pedido.productos[index].cantidad = parseInt(pedido.productos[index].cantidad) + 1;
                     pedido.productos[index].id = that.data('id');
+                    pedido.productos[index].nombre = that.data('nombre');
                     cantidad.append(valor + 1);
                     flag = 1;
                 }
@@ -156,7 +173,8 @@ function crear_orden()
             {
                 pedido.productos.push({
                     "id": that.data('id'),
-                    "cantidad": "1"
+                    "cantidad": "1",
+                    "nombre": that.data('nombre'),
                 });
                 cantidad.append("1");
             }
@@ -170,9 +188,27 @@ function crear_orden()
 
         // Borramos el contenido del modal
         body.html(""); 
+        console.log(pedido.productos);
         $.get('assets/templates/categorias.mst', function(template) {
             $.each(categorias, function(index, value) {
                 body.append(Mustache.render(template, json[index]));
+            });
+        });
+
+        // Borramos el contenido del footer
+        footer.html("")
+        footer.append('<h3 class="text-center" style="text-transform: uppercase">Resumen de Orden</h3>');
+        $.get('assets/templates/resumen-pedido.mst', function(template) {
+            footer.append(Mustache.render(template));
+            $.each(pedido.productos, function(index, value){
+                var table = $('.table tbody');
+
+                table.append('<tr> <td>' + pedido.productos[index].nombre + '</td> <td>' + pedido.productos[index].cantidad + '</td></tr>');
+            });
+
+            // Renderizando el btn de completar la order
+            $.get('assets/templates/btn-completar.mst', function(template) {
+                footer.append(Mustache.render(template));
             });
         });
     });

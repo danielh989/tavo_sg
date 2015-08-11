@@ -6,13 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Mesas | SG</title>
         <!-- Google Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-            <!-- Bootstrap -->
-            <link href="<?=base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
-            <!-- Bootstrap Datepicker -->
-            <link href="<?=base_url('assets/css/bootstrap-datetimepicker.min.css')?>" rel="stylesheet">
-            <!-- Custom Style -->
-            <link rel="stylesheet" href="<?=base_url('assets/css/style.css')?>">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> -->
+        <!-- Bootstrap -->
+        <link href="<?=base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
+        <!-- Bootstrap Datepicker -->
+        <link href="<?=base_url('assets/css/bootstrap-datetimepicker.min.css')?>" rel="stylesheet">
+        <!-- Custom Style -->
+        <link rel="stylesheet" href="<?=base_url('assets/css/style.css')?>">
 
         </head>
         <body>

@@ -1,0 +1,5 @@
+<a href="#" class="mesa-libre mesa-para-cambio" data-id="{{id}}" data-pedido-id="{{id_pedido}}">
+	<div class="number-wrapper">
+		<h2 class="number">{{numero}}</h2>
+	</div>
+</a>
